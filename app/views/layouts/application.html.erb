@@ -13,17 +13,20 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body>
-    <h1>Thriver: A Wellness Tracker</h1>
+  <header class="row">
+    <h1>Thriver</h1><span class="large-2 columns">A Wellness Tracker</span>
+  </header>
 
+  <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-
-    <nav>
-      <ul>
-        <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-      </ul>
-    </nav>
+    <div class="row">
+      <nav>
+        <ul>
+          <%= link_to 'Sign Up', new_user_registration_path %>
+        </ul>
+      </nav>
+    </div>
     <div id="app" class="container">
     <%= yield %>
   </div>

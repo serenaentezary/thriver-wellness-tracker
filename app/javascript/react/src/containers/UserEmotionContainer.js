@@ -34,15 +34,6 @@ class UserEmotionContainer extends Component{
    .then(body => {
      this.setState({ currentUser: body.user })
    })
-   fetch('/api/v1/user_emotions', {
-     credentials: 'same-origin',
-     method: 'GET',
-     headers: { 'Content-Type': 'application/json' }
-   })
-   .then(response => response.json())
-   .then(body => {
-     this.setState()
-   })
  }
 
  handleSliderHappiness(event) {
@@ -103,7 +94,7 @@ class UserEmotionContainer extends Component{
   // this.setState({ anger: [responseData.anger, ...this.state.anger] })
   // this.setState({ anxiety: [responseData.anxiety, ...this.state.anxiety] })
   // this.setState({ peacefulness: [responseData.peacefulness, ...this.state.peacefulness] })
-  // 
+  //
   // <GraphContainer
   //   happiness={}
   //   sadness={}
