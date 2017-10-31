@@ -3,7 +3,7 @@ import UserEmotionContainer from './UserEmotionContainer'
 import { render } from 'react-dom';
 import { Chart } from 'react-google-charts';
 
-class GraphContainer extends Component{
+class GraphContainer extends Component {
  constructor(props) {
    super(props);
    this.state = {
@@ -21,7 +21,7 @@ class GraphContainer extends Component{
      <div>
        <div className={'emotions_chart'}>
         <div>
-          <h2>Check your progress</h2>
+          <h2>Your emotions over time</h2>
           <Chart
             chartType="LineChart"
             data={data}

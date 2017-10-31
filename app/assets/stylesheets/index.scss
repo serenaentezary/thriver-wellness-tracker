@@ -6,17 +6,21 @@ header {
   color: white;
   font-size: 1.25rem;
   padding-top: 1.25rem;
+  margin-left: 0rem;
+  margin-right: 0rem;
 }
+
 header > h1 {
   display: inline-block;
 }
+
 header span {
   margin-left: 1rem;
+  color: #AC296B;
 }
 
-ul {
-  background-color: #DEA23C;
-  float: right;
+.link {
+  color: white;
 }
 
 .container {
@@ -34,10 +38,11 @@ body {
 }
 
 nav {
-  background-color: #DEA23C;
+  background-color: #337CED;
   border: #2767EC;
   margin: 0rem;
   padding: 0rem;
+  float: right;
 }
 
 div {

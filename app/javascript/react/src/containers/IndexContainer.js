@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import UserEmotionContainer from './UserEmotionContainer'
 
-class UserEmotionAverageContainer extends Component {
+class IndexContainer extends Component {
  constructor(props) {
    super(props);
    this.state = {
@@ -11,8 +10,12 @@ class UserEmotionAverageContainer extends Component {
 
    return(
      <div>
+       <div className="row">
+       </div>
+       <div className="row">
+       </div>
      </div>
    )
  }
 }
-export default UserEmotionAverageContainer
+export default IndexContainer

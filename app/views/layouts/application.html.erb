@@ -13,18 +13,15 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <header class="row">
-    <h1>Thriver</h1><span class="large-2 columns">A Wellness Tracker</span>
-  </header>
-
+  <div>
+    <header class="row">
+      <h1 class="link"><%= link_to "Thriver", root_path %></h1><span class="large-2 columns">A Wellness Tracker</span>
+    </header>
+  </div>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
     <div class="row">
       <nav>
-        <ul>
-          <%= link_to 'Sign Up', new_user_registration_path %>
-        </ul>
+        <%= link_to 'Sign Up', new_user_registration_path %>
       </nav>
     </div>
     <div id="app" class="container">

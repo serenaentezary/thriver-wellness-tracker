@@ -61,9 +61,9 @@ class UserEmotionContainer extends Component{
     this.setState({ peacefulness: event.target.value })
   }
 
-  // createPayLoad() {
-  //
-  // }
+  createPayLoad() {
+
+  }
 
   handleSubmit(payLoad) {
     fetch('/api/v1/user_emotions', {
@@ -77,24 +77,18 @@ class UserEmotionContainer extends Component{
   }
 
 
-  // retrieveValues() {
-  //   fetch('/api/v1/user_emotions'), {
-  //     credentials: 'same-origin',
-  //     method: 'GET',
-  //     headers: { 'Content-Type': 'application/json' }
-  //   }
-  //   .then(response => response.json())
-  //   .then (body => {
-  //     this.setState({ happiness:  })
-  //   })
-  // }
+  retrieveValues() {
+    fetch('/api/v1/user_emotions'), {
+      credentials: 'same-origin',
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    }
+    .then(response => response.json())
+    .then (body => {
+      this.setState({ happiness: body.happiness })
+    })
+  }
 
-  // this.setState({ sadness: [responseData.sadness, ...this.state.sadness] })
-  // this.setState({ excitement: [responseData.excitement, ...this.state.excitement] })
-  // this.setState({ anger: [responseData.anger, ...this.state.anger] })
-  // this.setState({ anxiety: [responseData.anxiety, ...this.state.anxiety] })
-  // this.setState({ peacefulness: [responseData.peacefulness, ...this.state.peacefulness] })
-  //
   // <GraphContainer
   //   happiness={}
   //   sadness={}
@@ -110,11 +104,23 @@ class UserEmotionContainer extends Component{
       <div>
         <div className="slider">
           <h3>How are you feeling at this moment? Please rate your emotions on a scale of 0 - 100.</h3>
+
+          <p className="happy">Happy</p>
           <input onChange={this.handleSliderHappiness} type="range" defaultValue={50} /><br />
+
+          <p className="sad">Sad</p>
           <input onChange={this.handleSliderSadness} type="range" defaultValue={50} /><br />
+
+          <p className="excited">Excited</p>
           <input onChange={this.handleSliderExcitement} type="range" defaultValue={50} /><br />
+
+          <p className="angry">Angry</p>
           <input onChange={this.handleSliderAnger} type="range" defaultValue={50} /><br />
+
+          <p className="anxious">Anxious</p>
           <input onChange={this.handleSliderAnxiety} type="range" defaultValue={50} /><br />
+
+          <p className="peaceful">Peaceful</p>
           <input onChange={this.handleSliderPeacefulness} type="range" defaultValue={50} /><br />
         </div>
 
