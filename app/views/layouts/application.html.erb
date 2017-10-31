@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Thriver: A Mental Health Tracker</title>
+    <title>Thriver: A Wellness Tracker</title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag 'application' %>
@@ -14,7 +14,7 @@
   </head>
 
   <body>
-    <h1>Thriver: A Mental Health Tracker</h1>
+    <h1>Thriver: A Wellness Tracker</h1>
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
@@ -24,7 +24,7 @@
         <li><%= link_to 'Sign Up', new_user_registration_path %></li>
       </ul>
     </nav>
-    <div class="container">
+    <div id="app" class="container">
     <%= yield %>
   </div>
     <%= javascript_include_tag "application" %>

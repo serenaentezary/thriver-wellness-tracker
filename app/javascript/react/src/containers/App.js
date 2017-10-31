@@ -1,20 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route } from 'react-router-dom'
+import UserEmotionContainer from './UserEmotionContainer'
 
-const Header = props => {
-  return(
-    <h1>
-      Thriver: A Mental Health Log
-    </h1>
-  )
-}
 
 const App = props => {
   return(
     <BrowserRouter>
       <div>
-        <Route path='/' component={Header} />
+        <Route path='/user_emotions' component={UserEmotionContainer} />
       </div>
     </BrowserRouter>
   )
