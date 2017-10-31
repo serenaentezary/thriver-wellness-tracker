@@ -12,6 +12,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-google-charts": "^1.5.5",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-slider": "^0.9.0"

@@ -11,6 +11,6 @@ describe('A test for App', () => {
   })
 
   it('should pass', () => {
-    expect(wrapper.find('h1').text()).toEqual("Thriver: A Mental Health Log")
+    expect(wrapper.find('h1').text()).toEqual("Thriver: A Wellness Tracker")
   })
 })

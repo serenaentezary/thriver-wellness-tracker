@@ -8,5 +8,5 @@ class User < ApplicationRecord
   validates :username, presence: true, length: { in: 6..20 }
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :lgbtq, presence: true, inclusion: { in: [ true, false ] }
+  validates :lgbtq, presence: true, numericality: true
 end

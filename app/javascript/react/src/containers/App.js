@@ -8,7 +8,7 @@ const App = props => {
   return(
     <BrowserRouter>
       <div>
-        <Route path='/user_emotions' component={UserEmotionContainer} />
+        <Route exact path='/user_emotions' component={UserEmotionContainer} />
       </div>
     </BrowserRouter>
   )
