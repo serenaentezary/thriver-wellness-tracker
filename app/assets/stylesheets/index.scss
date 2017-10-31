@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro');
+
+.container {
+  background-color: #DEA23C;
+  min-height: 100vh;
+}
+
+body {
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.selected {
+  background-color: #55B036
+}
+
+nav {
+  background-color: #DEA23C
+}
+
+h1 {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+  background-color: #DEA23C;
+  text-shadow: 2px 2px 4px #AC296B;
+}

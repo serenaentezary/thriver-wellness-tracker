@@ -4,17 +4,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
+    <title>Thriver: A Mental Health Tracker</title>
 
     <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_pack_tag    'application' %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
+    <h1>Thriver: A Mental Health Tracker</h1>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
+    <nav>
+      <ul>
+        <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+      </ul>
+    </nav>
+    <div class="container">
     <%= yield %>
+  </div>
     <%= javascript_include_tag "application" %>
   </body>
 </html>

@@ -10,16 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030162324) do
+ActiveRecord::Schema.define(version: 20171030203511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "diagnoses", force: :cascade do |t|
+    t.string "type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "emotions", force: :cascade do |t|
+    t.string "feeling"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "goals", force: :cascade do |t|
+    t.string "goal_item"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_goals_on_user_id"
+  end
+
+  create_table "journals", force: :cascade do |t|
+    t.string "entry"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_journals_on_user_id"
+  end
+
+  create_table "user_emotions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "emotion_id", null: false
+    t.integer "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["emotion_id"], name: "index_user_emotions_on_emotion_id"
+    t.index ["user_id"], name: "index_user_emotions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "first_name", default: "", null: false
-    t.string "last_name", default: "", null: false
+    t.string "username", null: false
+    t.string "email", null: false
+    t.string "encrypted_password", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.boolean "lgbtq", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
