@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro');
+
+header {
+  border-bottom: .25rem solid #337CED;
+  background-color: #DEA23C;
+  color: white;
+  font-size: 1.25rem;
+  padding-top: 1.25rem;
+}
+header > h1 {
+  display: inline-block;
+}
+header span {
+  margin-left: 1rem;
+}
+
+ul {
+  background-color: #DEA23C;
+  float: right;
+}
+
+.container {
+  background-color: #DEA23C;
+  min-height: 100vh;
+}
+
+body {
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.selected {
+  background-color: #55B036
+}
+
+nav {
+  background-color: #DEA23C;
+  border: #2767EC;
+  margin: 0rem;
+  padding: 0rem;
+}
+
+div {
+  background-color: #DEA23C
+}
+
+h1 {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+  background-color: #DEA23C;
+  text-shadow: 2px 2px 4px #AC296B;
+}
