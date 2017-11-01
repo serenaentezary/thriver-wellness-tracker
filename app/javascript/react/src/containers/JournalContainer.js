@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import JournalComponent from '../components/JournalComponent'
 
 class JournalContainer extends Component {
  constructor(props) {
    super(props);
    this.state = {
      entry: '',
-     currentUser: ''
+     currentUser: this.props.currentUser
    }
    this.handleChange = this.handleChange.bind(this)
    this.handleState = this.handleState.bind(this)
@@ -15,7 +16,7 @@ class JournalContainer extends Component {
  handleChange(event) {
    let formField = event.target.name
    let newValue = event.target.value
-   this.setState({ [field]: newValue })
+   this.setState({ entry: newValue })
  }
 
  handleState(event) {
@@ -29,10 +30,21 @@ class JournalContainer extends Component {
    })
  }
 
+ addNewJournal(entryPayload) {
+   fetch(`/api/v1/journals`, {
+    method: 'POST',
+    body: JSON.stringify(entryPayLoad)
+  })
+  .then(response => response.json())
+  .then(responseData =>{
+    this.setState({ entry: responseData.journals })
+  })
+ }
+
  handleSubmitJournal(event) {
    event.preventDefault();
    let entryPayload = {
-     entry: this.state.entry
+     entry: this.state.entry,
      currentUser: this.currentUser.id
    }
  }
@@ -41,14 +53,14 @@ class JournalContainer extends Component {
 
    return(
      <div>
-       <form className="callout" id="site-form">
+       <form className="journal" id="form">
          <JournalComponent
-           entry="entry"
-           content={this.state.journal}
-           handler={this.handleChange}
+           content={this.state.entry}
+           currentUser={this.state.currentUser}
+           handleChange={this.handleChange}
+           handleState={this.handleState}
+           handleSubmitJournal={this.handleSubmitJournal}
         />
-
-        <input type="submit" className="button" value="Submit " onClick={handleSubmitJournal} />
       </form>
      </div>
    )

@@ -1,5 +1,5 @@
 class Api::V1::UserEmotionsController < ApplicationController
-
+  before_action :authenticate_user!
   protect_from_forgery unless: -> { request.format.json? }
 
   def index
@@ -14,10 +14,9 @@ class Api::V1::UserEmotionsController < ApplicationController
 
   def create
     input = JSON.parse(request.body.read)
-    user = User.find(input["userId"])
+    user = User.find(input[currentUser.id])
     happiness = Emotion.find(input["happiness"])
     happiness_value = input["happiness"].to_i
-
   end
 
   def edit

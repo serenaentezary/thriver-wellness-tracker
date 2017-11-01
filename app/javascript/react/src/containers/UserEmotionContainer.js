@@ -10,7 +10,7 @@ class UserEmotionContainer extends Component{
      anger: 0,
      anxiety: 0,
      peacefulness: 0,
-     currentUser: [],
+     currentUser: props.currentUser,
      payLoad: []
    }
    this.handleSliderHappiness = this.handleSliderHappiness.bind(this)
@@ -20,20 +20,6 @@ class UserEmotionContainer extends Component{
    this.handleSliderAnxiety = this.handleSliderAnxiety.bind(this)
    this.handleSliderPeacefulness = this.handleSliderPeacefulness.bind(this)
    this.handleSubmit = this.handleSubmit.bind(this)
- }
-
-
-
- componentDidMount() {
-   fetch('/api/v1/user/is_signed_in.json', {
-     credentials: 'same-origin',
-     method: 'GET',
-     headers: { 'Content-Type': 'application/json' }
-   })
-   .then(response => response.json())
-   .then(body => {
-     this.setState({ currentUser: body.user })
-   })
  }
 
  handleSliderHappiness(event) {

@@ -1,6 +1,11 @@
 class Api::V1::UsersController < ApplicationController
-  def index
-    user = current_user
-    render json: user
+  protect_from_forgery unless: -> { request.format.json? }
+
+  def is_signed_in?
+    if user_signed_in?
+      render :json => {"signed_in" => true, "user" => current_user}
+    else
+      render :json => {"signed_in" => false}
+    end
   end
 end

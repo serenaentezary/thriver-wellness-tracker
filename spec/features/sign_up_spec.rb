@@ -34,7 +34,7 @@ feature 'sign up' , %{
     fill_in 'Username', with: ''
     fill_in 'First Name', with: ''
     fill_in 'Last Name', with: ''
-    fill_in 'Do you identify as someone who is in the LGBTQIA+ community?', with: ''
+    fill_in "Do you identify as someone in the LGBTQIA+ community? Check the box if true.", with: ''
     fill_in 'Email', with: ''
     fill_in 'Password', with: ''
     fill_in 'Confirm Password', with: ''

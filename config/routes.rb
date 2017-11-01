@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, param: :id, only: [:index, :show]
-      resources :user_emotions, except: [:show]
+      resources :user_emotions
+      resources :journals
+      resources :goals
       scope :user do
         get 'is_signed_in', to: 'user#is_signed_in?'
       end

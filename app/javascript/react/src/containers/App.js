@@ -10,7 +10,6 @@ const App = props => {
     <BrowserRouter>
       <div>
         <Route exact path='/' component={IndexContainer} />
-        <Route exact path="/journals" component={JournalContainer} />
         <Route exact path='/user_emotions' component={UserEmotionContainer} />
       </div>
     </BrowserRouter>

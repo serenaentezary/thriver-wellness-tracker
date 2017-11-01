@@ -8,8 +8,7 @@ feature 'sign out' , %{
 } do
 
   before :each do
-    serena = User.create(username: "serena", email: "skibuddy@aol.com", password: "isuredoloveskiing")
-    login_as(skibuddy, :scope => :user)
+    login_as(serena, :scope => :user)
   end
 
   scenario 'logged-in user signs out' do
