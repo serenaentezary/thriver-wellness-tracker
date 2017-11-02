@@ -25,7 +25,7 @@
     </div>
 
     <div class="row">
-      <%= f.label "Check the box if you identify as someone in the LGBTQ+ community." %><br />
+      <%= f.label "Check the box if you identify as someone in the LGBTQIA+ community." %><br />
       <%= f.check_box :lgbtq, autofocus: true %>
     </div>
 
@@ -38,14 +38,15 @@
     </div>
 
     <div class="row">
-      <div class="large-centered columns">
+      <div class="large-4 columns">
         <%= f.label :password_confirmation %><br />
         <%= f.password_field :password_confirmation, autocomplete: "off" %>
       </div>
     </div>
 
     <div class="actions">
-      <%= f.submit "Sign up" %>
+      <input type="button" class="button" />
+        <%= f.submit "Sign up" %>
     </div>
   <% end %>
 

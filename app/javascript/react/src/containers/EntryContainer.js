@@ -11,17 +11,17 @@ class EntryContainer extends Component {
    }
  }
 
- // componentDidMount() {
- //   fetch('/api/v1/user/is_signed_in.json', {
- //     credentials: 'same-origin',
- //     method: 'GET',
- //     headers: { 'Content-Type': 'application/json' }
- //   })
- //   .then(response => response.json())
- //   .then(body => {
- //     this.setState({ currentUser: body.user })
- //   })
- // }
+ componentDidMount() {
+   fetch('/api/v1/users/is_signed_in.json', {
+     credentials: 'same-origin',
+     method: 'GET',
+     headers: { 'Content-Type': 'application/json' }
+   })
+   .then(response => response.json())
+   .then(body => {
+     this.setState({ currentUser: body.user })
+   })
+ }
 
  render() {
 
