@@ -11,16 +11,16 @@ class IndexContainer extends Component {
  }
 
  render() {
-    return(
-      <div>
-        <EntryContainer />
-      </div>
-    )
-  return(
-      <div>
-        {entries}
-      </div>
-    )
+   return (
+     <div>
+       <EntryContainer />
+     </div>
+   )
+  // return(
+  //     <div>
+  //       {entries}
+  //     </div>
+  //   )
   }
 }
 export default IndexContainer

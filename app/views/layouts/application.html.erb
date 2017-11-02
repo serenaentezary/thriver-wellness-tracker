@@ -8,28 +8,35 @@
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag 'application' %>
-    <%= javascript_pack_tag    'application' %>
+    <%= javascript_pack_tag 'index'   %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
   </head>
 
-  <header class="row">
-    <h1>Thriver</h1><span class="large-2 columns">A Wellness Tracker</span>
-  </header>
-
+  <div>
+    <header class="row">
+      <h1 class="link"><%= link_to "Thriver", root_path %></h1><span id="subheader" class="large-2 columns"><%= link_to "A Wellness Tracker", root_path %></span>
+    </header>
+  </div>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <div class="row">
+    <div class="sign-in">
       <nav>
-        <ul>
-          <%= link_to 'Sign Up', new_user_registration_path %>
-        </ul>
+        <% if user_signed_in? %>
+          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+        <% else %>
+          <%= link_to "Log In", new_user_session_path %> /
+          <%= link_to "Sign Up", new_user_registration_path %>
+        <% end %>
       </nav>
     </div>
-    <div id="app" class="container">
-    <%= yield %>
-  </div>
-    <%= javascript_include_tag "application" %>
+    <div class="flash">
+      <%= flash[:notice] %>
+      <%= flash[:alert] %>
+    </div>
+    <div id="app">
+    </div>
+    <div id="server-side">
+      <%= yield %>
+    </div>
   </body>
 </html>
