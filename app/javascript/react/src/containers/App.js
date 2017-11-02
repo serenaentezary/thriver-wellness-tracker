@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Link } from 'react-router-dom'
 import UserEmotionContainer from './UserEmotionContainer'
 import IndexContainer from './IndexContainer'
 import JournalContainer from './JournalContainer'
