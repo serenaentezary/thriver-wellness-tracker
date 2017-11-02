@@ -9,12 +9,12 @@ const JournalComponent = props => {
           id="journal"
           name="journal"
           className="large-12 columns"
-          value={props.content}
           onChange={props.handleChange}
+          value={props.content}
         >
         </textarea>
       </label>
-      <input className="button" value="Submit " onClick={props.handleClick} />
+      <input type="button" className="button" value="Submit " onClick={props.handleClick} />
     </div>
 
   )

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class UserEmotionContainer extends Component{
+class UserEmotionContainer extends Component {
  constructor(props) {
    super(props);
    this.state = {
@@ -88,8 +88,8 @@ class UserEmotionContainer extends Component{
     let handleClick = () => { this.handleSubmitEmotions(this.state.emotionsPayLoad) }
 
     return(
-      <div>
-        <div className="slider">
+      <div className="row">
+        <div className="large-9 columns">
           <h5>How are you feeling at this moment? Please rate your emotions on a scale of 0 - 100.</h5>
 
           <p className="happy">Happy</p>

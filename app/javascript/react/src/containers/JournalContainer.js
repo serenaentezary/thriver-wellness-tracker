@@ -20,7 +20,6 @@ class JournalContainer extends Component {
 
  handleState(event) {
    this.setState({ entry: event.target.value })
-   console.log(this.state.entry)
  }
 
  handleClearForm(event) {
