@@ -4,12 +4,12 @@ const JournalComponent = props => {
   return(
     <div className="row">
 
-      <label>Feel free to write about your day! What were the highs? The lows? What brought you joy today? If you had a rough day, what can you do to make it better?<br />
-        <textarea rows="20" cols="40"
-          id="journal"
-          name="journal"
-          onChange={props.handleChange}
+      <label>Write up to five goals that you want to set for yourself today. Try to write goals that are reachable within the next 8 - 12 hours. You can cross them off when you're done!<br />
+        <textarea rows="2" cols="20"
+          id="goals"
+          name="goals"
           className="large-12 columns"
+          onChange={props.handleChange}
           value={props.content}
         >
         </textarea>

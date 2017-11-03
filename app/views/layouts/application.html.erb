@@ -21,8 +21,8 @@
   <body>
     <div class="sign-in">
       <nav>
-  
-        <%= link_to "Previous Journal Entries", api_v1_journals_path %>
+
+        <%= link_to "Previous Journal Entries", api_v1_user_journals_path(user_id: 1) %>
 
         <% if user_signed_in? %>
           <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>

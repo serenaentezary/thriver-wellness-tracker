@@ -16,11 +16,6 @@ class IndexContainer extends Component {
        <EntryContainer />
      </div>
    )
-  // return(
-  //     <div>
-  //       {entries}
-  //     </div>
-  //   )
   }
 }
 export default IndexContainer

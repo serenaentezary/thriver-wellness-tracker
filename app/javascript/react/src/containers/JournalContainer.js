@@ -6,7 +6,6 @@ class JournalContainer extends Component {
    super(props);
    this.state = {
      entry: '',
-     currentUser: this.props.currentUser
    }
    this.handleChange = this.handleChange.bind(this)
    this.handleState = this.handleState.bind(this)
@@ -22,46 +21,23 @@ class JournalContainer extends Component {
    this.setState({ entry: event.target.value })
  }
 
- handleClearForm(event) {
-   event.preventDefault();
+ handleClearForm() {
    this.setState({
      entry: ''
    })
  }
 
- addNewJournal(entryPayload) {
-    fetch('/api/v1/journals', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        entry: this.state.entry,
-        currentUser: this.state.currentUser
-      })
-    })
-     .then(response => response.json())
-     .then(responseData =>{
-       this.setState({ entry: responseData.entry })
-     })
-   }
-
- //   fetch('/api/v1/journals', {
- //    method: 'POST',
- //    body: JSON.stringify(entryPayLoad)
- //  })
-
-
- handleSubmitJournal(event) {
+ handleSubmitJournal(journalEntry) {
    event.preventDefault();
-   let entryPayload = {
-     entry: this.state.entry,
-     currentUser: this.state.currentUser
-   }
- }
+   fetch(`/api/v1/users/${this.props.currentUser.id}/journals`, {
+     method: 'POST',
+     body: journalEntry
+   })
+   this.handleClearForm()
+  }
 
  render() {
+   let handleClick = () => { this.handleSubmitJournal(this.state.entry) }
 
    return(
      <div>
@@ -71,6 +47,7 @@ class JournalContainer extends Component {
          handleChange={this.handleChange}
          handleState={this.handleState}
          handleSubmitJournal={this.handleSubmitJournal}
+         handleClick={handleClick}
       />
      </div>
    )

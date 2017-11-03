@@ -4,15 +4,15 @@ class UserEmotionContainer extends Component {
  constructor(props) {
    super(props);
    this.state = {
-     happiness: 0,
-     sadness: 0,
-     excitement: 0,
-     anger: 0,
-     anxiety: 0,
-     peacefulness: 0,
-     currentUser: props.currentUser,
+     happiness: 50,
+     sadness: 50,
+     excitement: 50,
+     anger: 50,
+     anxiety: 50,
+     peacefulness: 50,
      emotionsPayLoad: []
    }
+   this.createPayLoad = this.createPayLoad.bind(this)
    this.handleSliderHappiness = this.handleSliderHappiness.bind(this)
    this.handleSliderSadness = this.handleSliderSadness.bind(this)
    this.handleSliderExcitement = this.handleSliderExcitement.bind(this)
@@ -23,7 +23,6 @@ class UserEmotionContainer extends Component {
  }
 
  handleSliderHappiness(event) {
-    console.log(event.target.value);
     this.setState({ happiness: event.target.value })
   }
 
@@ -48,31 +47,22 @@ class UserEmotionContainer extends Component {
   }
 
   createPayLoad() {
-    this.setState({ emotionsPayLoad: [this.state.happiness, this.state.sadness, this.state.excitement, this.state.anger, this.state.anxiety, this.state.peacefulness] })
+    this.state.emotionsPayLoad = {
+      happiness: this.state.happiness,
+      sadness: this.state.sadness,
+      excitement: this.state.excitement,
+      anger: this.state.anger,
+      anxiety: this.state.anxiety,
+      peacefulness: this.state.peacefulness
+    }
   }
 
   handleSubmitEmotions(payLoad) {
-    fetch('/api/v1/user_emotions', {
+    fetch(`/api/v1/users/${this.props.currentUser.id}/user_emotions`, {
       method: 'POST',
       body: JSON.stringify(payLoad)
     })
-    .then(response => response.json())
-    .then(responseData =>{
-      this.setState({ payLoad: [responseData.emotionsPayLoad, ...this.state.emotionsPayLoad] })
-    })
-  }
-
-
-  retrieveValues() {
-    fetch('/api/v1/user_emotions'), {
-      credentials: 'same-origin',
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    }
-    .then(response => response.json())
-    .then (body => {
-      this.setState({ happiness: body.happiness })
-    })
+    this.clearSliders()
   }
 
   // <GraphContainer
@@ -85,7 +75,8 @@ class UserEmotionContainer extends Component {
   //   currentUser={this.state.currentUser}
   // />
   render() {
-    let handleClick = () => { this.handleSubmitEmotions(this.state.emotionsPayLoad) }
+
+    let handleClick = () => { this.createPayLoad(); this.handleSubmitEmotions(this.state.emotionsPayLoad) }
 
     return(
       <div className="row">
@@ -93,22 +84,22 @@ class UserEmotionContainer extends Component {
           <h5>How are you feeling at this moment? Please rate your emotions on a scale of 0 - 100.</h5>
 
           <p className="happy">Happy</p>
-          <input onChange={this.handleSliderHappiness} type="range" defaultValue={50} /><br />
+          <input onChange={this.handleSliderHappiness} list="tickmarks" className="small-6 columns" type="range" defaultValue={50} />{this.state.happiness}<br />
 
           <p className="sad">Sad</p>
-          <input onChange={this.handleSliderSadness} type="range" defaultValue={50} /><br />
+          <input onChange={this.handleSliderSadness} className="small-6 columns" type="range" defaultValue={50} />{this.state.sadness}<br />
 
           <p className="excited">Excited</p>
-          <input onChange={this.handleSliderExcitement} type="range" defaultValue={50} /><br />
+          <input onChange={this.handleSliderExcitement} className="small-6 columns" type="range" defaultValue={50} />{this.state.excitement}<br />
 
           <p className="angry">Angry</p>
-          <input onChange={this.handleSliderAnger} type="range" defaultValue={50} /><br />
+          <input onChange={this.handleSliderAnger} className="small-6 columns" type="range" defaultValue={50} />{this.state.anger}<br />
 
           <p className="anxious">Anxious</p>
-          <input onChange={this.handleSliderAnxiety} type="range" defaultValue={50} /><br />
+          <input onChange={this.handleSliderAnxiety} className="small-6 columns" type="range" defaultValue={50} />{this.state.anxiety}<br />
 
           <p className="peaceful">Peaceful</p>
-          <input onChange={this.handleSliderPeacefulness} type="range" defaultValue={50} /><br />
+          <input onChange={this.handleSliderPeacefulness} className="small-6 columns" type="range" defaultValue={50} />{this.state.peacefulness}<br />
         </div>
         <input type="submit" className="button" value="Submit " onClick={handleClick} />
 

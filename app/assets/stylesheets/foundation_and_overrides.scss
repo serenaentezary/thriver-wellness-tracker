@@ -256,7 +256,7 @@ $subheader-font-color: #AC296B;
 // $anchor-text-decoration: none;
 // $anchor-text-decoration-hover: none;
 $anchor-font-color: white;
-// $anchor-font-color-hover: scale-color($primary-color, $lightness: -14%);
+$anchor-font-color-hover: #55B036;
 
 // We use these to style the <hr> element
 // $hr-border-width: 1px;
@@ -447,7 +447,7 @@ $blockquote-cite-link-color: white;
 // We use these to control button border and hover styles.
 // $button-border-width: 0px;
 // $button-border-style: solid;
-// $button-bg-color: $primary-color;
+$button-bg-color: #337CED;
 // $button-bg-hover: scale-color($button-bg-color, $lightness: $button-function-factor);
 // $button-border-color: $button-bg-hover;
 // $secondary-button-bg-hover: scale-color($secondary-color, $lightness: $button-function-factor);

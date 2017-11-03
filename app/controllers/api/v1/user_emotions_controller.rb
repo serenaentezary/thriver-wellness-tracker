@@ -1,5 +1,6 @@
 class Api::V1::UserEmotionsController < ApplicationController
   protect_from_forgery unless: -> { request.format.json? }
+  skip_before_action :verify_authenticity_token, only: [:create, :update]
 
   def index
     user_emotions = UserEmotion.all
@@ -12,11 +13,16 @@ class Api::V1::UserEmotionsController < ApplicationController
   end
 
   def create
-    input = JSON.parse(request.body.read)
-    user = User.find(input["userId"])
-    happiness = Emotion.find(input["happiness"])
-    happiness_value = input["happiness"].to_i
-
+    ratings = JSON.parse(request.body.read)
+    user = User.find(params[:user_id])
+    ratings.each do |emotion_name, rating|
+      emotion = Emotion.find_by_feeling(emotion_name)
+      UserEmotion.create(
+        user: user,
+        emotion: emotion,
+        rating: rating
+      )
+    end
   end
 
   def edit
