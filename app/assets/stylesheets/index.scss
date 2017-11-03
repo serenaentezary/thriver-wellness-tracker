@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro');
-
+// #FDF9CC
 header {
-  border-bottom: .25rem solid #337CED;
-  background-color: #DEA23C;
   color: white;
   font-size: 1.25rem;
   padding-top: 1.25rem;
@@ -11,42 +9,44 @@ header > h1 {
   display: inline-block;
 }
 header span {
-  margin-left: 1rem;
-}
-
-ul {
-  background-color: #DEA23C;
-  float: right;
-}
-
-.container {
-  background-color: #DEA23C;
-  min-height: 100vh;
-}
-
-body {
-  color: white;
-  font-family: 'Roboto', sans-serif;
+  margin-right: 2rem;
 }
 
 .selected {
-  background-color: #55B036
+  background-color: #52A3F8
 }
 
 nav {
-  background-color: #DEA23C;
-  border: #2767EC;
+  background-color: #4D5176;
   margin: 0rem;
   padding: 0rem;
 }
 
 div {
-  background-color: #DEA23C
 }
 
 h1 {
   font-family: 'Source Sans Pro', sans-serif;
-  color: white;
-  background-color: #DEA23C;
+}
+
+h1.thriver {
   text-shadow: 2px 2px 4px #AC296B;
+}
+
+.app {
+}
+
+body {
+  background-repeat: no-repeat;
+  background-size: contain;
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  z-index: 0;
+  min-height: 100vh;
+}
+
+.side-buttons {
+}
+
+div.wrapping {
 }

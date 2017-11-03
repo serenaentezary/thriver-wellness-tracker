@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Route } from 'react-router-dom'
-import UserEmotionContainer from './UserEmotionContainer'
+import { BrowserRouter, Route, Link } from 'react-router-dom'
+import IndexContainer from './IndexContainer'
 
 
 const App = props => {
   return(
     <BrowserRouter>
       <div>
-        <Route exact path='/user_emotions' component={UserEmotionContainer} />
+        <Route exact path='/' component={IndexContainer} />
       </div>
     </BrowserRouter>
   )
