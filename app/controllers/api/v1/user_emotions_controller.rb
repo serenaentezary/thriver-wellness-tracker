@@ -26,7 +26,7 @@ class Api::V1::UserEmotionsController < ApplicationController
   end
 
   def edit
-
+    # user_emotion = UserEmotion.find(params[])
   end
 
   def update
