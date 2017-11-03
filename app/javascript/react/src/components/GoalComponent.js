@@ -14,7 +14,7 @@ const GoalComponent = props => {
         >
         </textarea>
       </label>
-      <input type="button" className="button" value="Enter Goal " onClick={props.handleClick} />
+      <input type="button" className="button" value="Enter Goal" onClick={props.handleClick} />
     </div>
 
   )
