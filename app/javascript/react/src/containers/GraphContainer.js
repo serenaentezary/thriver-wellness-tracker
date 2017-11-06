@@ -3,28 +3,35 @@ import UserEmotionContainer from './UserEmotionContainer'
 import { render } from 'react-dom';
 import { Chart } from 'react-google-charts';
 
-class GraphContainer extends Component{
- constructor(props) {
-   super(props);
-   this.state = {
-     happiness: props.happiness,
-     sadness: props.sadness,
-     excitement: props.excitement,
-     anger: props.anger,
-     anxiety: props.anxiety,
-     peacefulness: props.peacefulness
-   }
- }
- render() {
-   let data = ''
-   return(
-     <div>
-       <div className={'emotions_chart'}>
+class GraphContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: []
+    }
+  }
+
+  componentDidMount() {
+    fetch(`/api/v1/users/${this.props.currentUser.id}/user_emotions/graph_data`, {
+      credentials: 'same-origin',
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ data: body.user_emotions })
+    })
+  }
+
+  render() {
+
+    return (
+      <div className={'my-pretty-chart-container'}>
         <div>
-          <h2>Check your progress</h2>
+          <h2>Track your progress over time!</h2>
           <Chart
             chartType="LineChart"
-            data={data}
+            data={this.state.data}
             options={{}}
             graph_id="LineChart"
             width="100%"
@@ -33,8 +40,8 @@ class GraphContainer extends Component{
           />
         </div>
       </div>
-     </div>
-   )
- }
+    );
+  }
 }
+
 export default GraphContainer

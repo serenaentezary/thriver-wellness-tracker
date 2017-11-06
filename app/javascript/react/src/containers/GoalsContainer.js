@@ -57,7 +57,7 @@ class GoalsContainer extends Component {
        <GoalComponent
          content={this.state.entry}
          currentUser={this.props.currentUser}
-         handleGoalsClick={handleGoalsClick}
+         goalsClass={this.props.goalsClass}
       />
      </div>
    )
