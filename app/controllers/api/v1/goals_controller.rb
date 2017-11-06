@@ -6,13 +6,8 @@ class Api::V1::GoalsController < ApplicationController
     render json: goals
   end
 
-  def new
-
-  end
-
   def create
     goals = JSON.parse(request.body.read)
-    # goals = JSON.parse(request.body.read)
     user = User.find(params[:user_id])
     Goal.create(
       user: user,
@@ -21,7 +16,7 @@ class Api::V1::GoalsController < ApplicationController
   end
 
   def edit
-
+    binding.pry
   end
 
   def update

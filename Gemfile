@@ -1,5 +1,6 @@
 source 'https://rubygems.org/'
 
+ruby '2.3.3'
 gem 'rails', '~> 5.1.2'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
@@ -9,7 +10,8 @@ gem 'webpacker'
 gem 'devise'
 gem 'foundation-rails'
 gem 'jquery-rails'
-gem 'active_model_serializers'
+gem 'active_model_serializers', '0.9.3'
+gem 'nokogiri'
 group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'

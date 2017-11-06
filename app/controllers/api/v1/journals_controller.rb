@@ -6,10 +6,6 @@ class Api::V1::JournalsController < ApplicationController
     render json: journals
   end
 
-  def new
-
-  end
-
   def create
     entry = request.body.read
     user = User.find(params[:user_id])
