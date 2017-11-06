@@ -22,7 +22,8 @@ nav {
   padding: 0rem;
 }
 
-div {
+.side-buttons {
+  margin-right: 3rem;
 }
 
 h1 {
@@ -31,9 +32,6 @@ h1 {
 
 h1.thriver {
   text-shadow: 2px 2px 4px #AC296B;
-}
-
-.app {
 }
 
 body {
@@ -45,6 +43,6 @@ body {
   min-height: 100vh;
 }
 
-.banana {
+.hidden {
   display: none;
 }

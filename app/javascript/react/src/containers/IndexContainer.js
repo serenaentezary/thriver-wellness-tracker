@@ -22,9 +22,9 @@ class IndexContainer extends Component {
      peacefulness: 50,
      emotionsPayLoad: [],
 
-     journalClass: 'banana',
+     journalClass: 'hidden',
      goalsClass: '',
-     userEmotionsClass: 'banana'
+     userEmotionsClass: 'hidden'
    }
    this.handleJournalChange = this.handleJournalChange.bind(this)
    this.handleJournalState = this.handleJournalState.bind(this)
@@ -130,17 +130,15 @@ class IndexContainer extends Component {
  }
 
  showJournal() {
-   this.setState({ journalClass: '', goalsClass: 'banana', userEmotionsClass: 'banana' })
+   this.setState({ journalClass: '', goalsClass: 'hidden', userEmotionsClass: 'hidden' })
  }
 
  showGoals() {
-  this.setState({ journalClass: 'banana', goalsClass: '', userEmotionsClass: 'banana' })
+  this.setState({ journalClass: 'hidden', goalsClass: '', userEmotionsClass: 'hidden' })
  }
 
  showEmotions() {
-   this.setState({ journalClass: 'banana' })
-   this.setState({ goalsClass: 'banana' })
-   this.setState({ userEmotionsClass: '' })
+   this.setState({ journalClass: 'hidden', goalsClass: 'hidden', userEmotionsClass: '' })
  }
 
  render() {
@@ -210,7 +208,7 @@ class IndexContainer extends Component {
            {journalContainer}
            <button type="button" onClick={handleEntryClick}>Submit Entry</button>
           </div>
-          <div className="large-3 small-3 columns">
+          <div className="large-2 small-2 columns">
             <h3>Latest Entry</h3>
           </div>
        </div>
