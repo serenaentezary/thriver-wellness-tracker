@@ -1,4 +1,5 @@
 class Api::V1::UserEmotionsController < ApplicationController
+  require 'date'
   protect_from_forgery unless: -> { request.format.json? }
   skip_before_action :verify_authenticity_token, only: [:create, :update]
 
@@ -23,14 +24,16 @@ class Api::V1::UserEmotionsController < ApplicationController
   end
 
   def graph_data
-    entries = Entry.all
+    user = current_user
+    entries = user.entries
     data = [
-      ["Time", "Happiness", "Sadness", "Excitement", "Anger", "Anxiety", "Peacefulness"]]
+      ["Time", "Happiness", "Sadness", "Excitement", "Anger", "Anxiety", "Peacefulness"]
+    ]
     entries.each do |entry|
-      time = entry.created_at
-      happiness = entry.rating('happiness')
-      sadness = entry.rating('sadness')
-      excitement = entry.rating('excitement')
+      time = entry.created_at.strftime('%a %d %b %Y')
+      happiness = entry.rating('happiness').to_i
+      sadness = entry.rating('sadness').to_i
+      excitement = entry.rating('excitement').to_i
       anger = entry.rating('anger')
       anxiety = entry.rating('anxiety')
       peacefulness = entry.rating('peacefulness')
@@ -40,7 +43,7 @@ class Api::V1::UserEmotionsController < ApplicationController
   end
 
   def edit
-    # user_emotion = UserEmotion.find(params[])
+    # user_emotion = Entry.find(params[])
   end
 
   def update

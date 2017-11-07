@@ -31,18 +31,24 @@ h1 {
 }
 
 h1.thriver {
-  text-shadow: 2px 2px 4px #AC296B;
+  text-shadow: 4px 4px 7px #AC296B;
 }
 
-body {
+
+#background-image {
+  background-image: url('http://wallpaperpixel.com/download/sunrise-over-mountains-1680x1260.jpg');
+  background-size: cover;
   background-repeat: no-repeat;
-  background-size: contain;
+
   font-family: 'Roboto', sans-serif;
-  width: 100%;
-  z-index: 0;
+  min-width: 100vh;
   min-height: 100vh;
 }
 
 .hidden {
   display: none;
+}
+
+.google-chart {
+
 }

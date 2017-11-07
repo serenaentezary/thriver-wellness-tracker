@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import IndexContainer from './IndexContainer'
 
-class EntryContainer extends Component {
+class EntryShowContainer extends Component {
  constructor(props) {
    super(props);
    this.state = {
@@ -22,4 +22,4 @@ class EntryContainer extends Component {
    )
   }
 }
-export default EntryContainer
+export default EntryShowContainer

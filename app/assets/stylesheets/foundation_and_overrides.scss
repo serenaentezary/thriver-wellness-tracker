@@ -124,11 +124,6 @@ $include-html-global-classes: $include-html-classes;
 // $black       : #000000;
 
 // We use these to control various global styles
-$body-bg: url('http://wallpaperpixel.com/download/sunrise-over-mountains-1680x1260.jpg');
-body {
-  background-repeat: no-repeat;
-  background-size: contain;
-}
 // $body-font-color: $jet;
 // $body-font-family: $font-family-sans-serif;
 // $body-font-weight: $font-weight-normal;
@@ -209,7 +204,7 @@ $header-font-color: #4D5176;
 // $header-text-rendering: optimizeLegibility;
 
 // We use these to control header font sizes
-// $h1-font-size: rem-calc(44);
+$h1-font-size: rem-calc(50);
 // $h2-font-size: rem-calc(37);
 // $h3-font-size: rem-calc(27);
 // $h4-font-size: rem-calc(23);

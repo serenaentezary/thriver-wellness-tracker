@@ -15,7 +15,6 @@ class JournalContainer extends Component {
          content={this.props.journalEntry}
          currentUser={this.props.currentUser}
          handleJournalChange={this.props.handleJournalChange}
-         handleJournalState={this.props.handleJournalState}
          journalClass={this.props.journalClass}
       />
      </div>

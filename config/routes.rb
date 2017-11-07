@@ -5,17 +5,21 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, param: :id, only: [:index, :show] do
-        resources :user_emotions, except: [:new] do
-          collection do
-            get :graph_data
+        resources :entries, except: [:new] do
+          resources :user_emotions, except: [:new] do
+            collection do
+              get :graph_data
+            end
           end
+          resources :journals, except: [:new]
+          resources :goals, except: [:new]
         end
-        resources :journals, except: [:new]
-        resources :goals, except: [:new]
       end
-      scope :user do
-        get 'is_signed_in', to: 'user#is_signed_in?'
+      namespace :users do
+        get 'is_signed_in', to: 'users#show'
       end
     end
   end
+
+  get '*path', to: 'static_pages#index'
 end

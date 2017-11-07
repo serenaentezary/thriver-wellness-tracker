@@ -12,10 +12,9 @@ class GraphContainer extends Component {
   }
 
   componentDidMount() {
-    fetch(`/api/v1/users/${this.props.currentUser.id}/user_emotions/graph_data`, {
+    fetch(`/api/v1/users/${this.props.currentUser.id}/entries/${this.props.entry_id}/user_emotions/graph_data`, {
       credentials: 'same-origin',
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+      method: 'GET'
     })
     .then(response => response.json())
     .then(body => {
@@ -26,7 +25,7 @@ class GraphContainer extends Component {
   render() {
 
     return (
-      <div className={'my-pretty-chart-container'}>
+      <div className={'google-chart'}>
         <div>
           <h2>Track your progress over time!</h2>
           <Chart

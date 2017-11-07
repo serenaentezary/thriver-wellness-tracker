@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import UserEmotionContainer from './UserEmotionContainer'
 import JournalContainer from './JournalContainer'
 import GoalsContainer from './GoalsContainer'
-import EntryContainer from './EntryContainer'
 import FrontPageComponent from '../components/FrontPageComponent'
 import GraphContainer from './GraphContainer'
 
@@ -10,8 +9,8 @@ class IndexContainer extends Component {
  constructor(props) {
    super(props);
    this.state = {
-     selectedSection: null,
      currentUser: {},
+
      journalEntry: '',
 
      happiness: 50,
@@ -22,9 +21,17 @@ class IndexContainer extends Component {
      peacefulness: 50,
      emotionsPayLoad: [],
 
+     goalItem1: '',
+     goalItem2: '',
+     goalItem3: '',
+     goalItem4: '',
+     goalItem5: '',
+     goalsPayLoad: [],
+
      journalClass: 'hidden',
      goalsClass: '',
-     userEmotionsClass: 'hidden'
+     userEmotionsClass: 'hidden',
+     graphClass: ''
    }
    this.handleJournalChange = this.handleJournalChange.bind(this)
    this.handleJournalState = this.handleJournalState.bind(this)
@@ -39,31 +46,29 @@ class IndexContainer extends Component {
    this.handleSliderAnxiety = this.handleSliderAnxiety.bind(this)
    this.handleSliderPeacefulness = this.handleSliderPeacefulness.bind(this)
 
+   this.handleGoal1Change = this.handleGoal1Change.bind(this)
+   this.handleGoal2Change = this.handleGoal2Change.bind(this)
+   this.handleGoal3Change = this.handleGoal3Change.bind(this)
+   this.handleGoal4Change = this.handleGoal4Change.bind(this)
+   this.handleGoal5Change = this.handleGoal5Change.bind(this)
+   this.createGoalsPayLoad = this.createGoalsPayLoad.bind(this)
+
    this.showJournal = this.showJournal.bind(this)
    this.showGoals = this.showGoals.bind(this)
    this.showEmotions = this.showEmotions.bind(this)
-
+   this.hideGraph = this.hideGraph.bind(this)
  }
 
  componentDidMount() {
-   fetch('/api/v1/user/is_signed_in.json', {
+   fetch('/api/v1/users/is_signed_in', {
      credentials: 'same-origin',
-     method: 'GET',
-     headers: { 'Content-Type': 'application/json' }
+     method: 'GET'
    })
    .then(response => response.json())
    .then(body => {
      this.setState({ currentUser: body.user })
    })
  }
-
- // toggleSectionSelected(id) {
- //   if (id === this.state.selectedSection) {
- //     this.setState({ selectedSection: null })
- //   } else {
- //     this.setState({ selectedSection: id })
- //   }
- // }
 
  handleJournalChange(event) {
    let newValue = event.target.value
@@ -81,6 +86,7 @@ class IndexContainer extends Component {
  }
 
  handleSliderHappiness(event) {
+   debugger;
    this.setState({ happiness: event.target.value })
  }
 
@@ -115,17 +121,55 @@ class IndexContainer extends Component {
    }
  }
 
+ handleGoal1Change(event) {
+   this.setState({ goalItem1: event.target.value })
+ }
+
+ handleGoal2Change(event) {
+   this.setState({ goalItem2: event.target.value })
+ }
+
+ handleGoal3Change(event) {
+   this.setState({ goalItem3: event.target.value })
+ }
+
+ handleGoal4Change(event) {
+   this.setState({ goalItem4: event.target.value })
+ }
+
+ handleGoal5Change(event) {
+   this.setState({ goalItem5: event.target.value })
+ }
+
+ createGoalsPayLoad() {
+   this.state.goalsPayLoad = {
+     goalItem1: this.state.goalItem1,
+     goalItem2: this.state.goalItem2,
+     goalItem3: this.state.goalItem3,
+     goalItem4: this.state.goalItem4,
+     goalItem5: this.state.goalItem5
+   }
+ }
+
  handleTotalEntrySubmit() {
    event.preventDefault();
 
    fetch(`/api/v1/users/${this.state.currentUser.id}/journals`, {
      method: 'POST',
+     credentials: 'same-origin',
      body: this.state.journalEntry
    })
    this.createEmotionsPayLoad()
    fetch(`/api/v1/users/${this.state.currentUser.id}/user_emotions`, {
      method: 'POST',
+     credentials: 'same-origin',
      body: JSON.stringify(this.state.emotionsPayLoad)
+   })
+   this.createGoalsPayLoad()
+   fetch(`/api/v1/users/${this.state.currentUser.id}/goals`, {
+     method: 'POST',
+     credentials: 'same-origin',
+     body: JSON.stringify(this.state.goalsPayLoad)
    })
  }
 
@@ -141,6 +185,10 @@ class IndexContainer extends Component {
    this.setState({ journalClass: 'hidden', goalsClass: 'hidden', userEmotionsClass: '' })
  }
 
+ hideGraph() {
+   this.setState({ graphClass: 'hidden' })
+ }
+
  render() {
    let handleEntryClick = () => { this.handleTotalEntrySubmit() }
 
@@ -148,6 +196,7 @@ class IndexContainer extends Component {
    let userEmotionContainer;
    let goalsContainer;
    let frontPageComponent;
+   let graphContainer;
    if (this.state.currentUser) {
      journalContainer = <JournalContainer
        currentUser={this.state.currentUser}
@@ -178,10 +227,27 @@ class IndexContainer extends Component {
      goalsContainer = <GoalsContainer
        currentUser={this.state.currentUser}
        goalsClass={this.state.goalsClass}
+       goalItem1={this.state.goalItem1}
+       goalItem2={this.state.goalItem2}
+       goalItem3={this.state.goalItem3}
+       goalItem4={this.state.goalItem4}
+       goalItem5={this.state.goalItem5}
+       handleGoal1Change={this.handleGoal1Change}
+       handleGoal2Change={this.handleGoal2Change}
+       handleGoal3Change={this.handleGoal3Change}
+       handleGoal4Change={this.handleGoal4Change}
+       handleGoal5Change={this.handleGoal5Change}
+     />
+
+     graphContainer = <GraphContainer
+       currentUser={this.state.currentUser}
+       graphClass={this.state.graphClass}
+       hideGraph={this.hideGraph}
      />
 
     } else {
       frontPageComponent = <FrontPageComponent />
+      this.hideGraph()
     }
     let buttons = [["Set Daily Goals", this.showGoals], ["Challenges", this.showJournal], ["Journal", this.showJournal], ["Rate Your Emotions", this.showEmotions]]
     let sectionButtons = buttons.map(button => {
@@ -212,9 +278,7 @@ class IndexContainer extends Component {
             <h3>Latest Entry</h3>
           </div>
        </div>
-       <GraphContainer
-         currentUser={this.state.currentUser}
-       />
+       {graphContainer}
      </div>
     )
   }

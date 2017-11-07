@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171105231936) do
+ActiveRecord::Schema.define(version: 20171105225353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,26 +28,28 @@ ActiveRecord::Schema.define(version: 20171105231936) do
   end
 
   create_table "entries", force: :cascade do |t|
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_entries_on_user_id"
   end
 
   create_table "goals", force: :cascade do |t|
     t.string "goal_item"
     t.bigint "user_id", null: false
+    t.bigint "entry_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "entry_id"
     t.index ["entry_id"], name: "index_goals_on_entry_id"
     t.index ["user_id"], name: "index_goals_on_user_id"
   end
 
   create_table "journals", force: :cascade do |t|
-    t.string "entry"
+    t.string "journal_entry"
     t.bigint "user_id", null: false
+    t.bigint "entry_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "entry_id"
     t.index ["entry_id"], name: "index_journals_on_entry_id"
     t.index ["user_id"], name: "index_journals_on_user_id"
   end
@@ -70,10 +72,10 @@ ActiveRecord::Schema.define(version: 20171105231936) do
   create_table "user_emotions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "emotion_id", null: false
+    t.bigint "entry_id", null: false
     t.integer "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "entry_id"
     t.index ["emotion_id"], name: "index_user_emotions_on_emotion_id"
     t.index ["entry_id"], name: "index_user_emotions_on_entry_id"
     t.index ["user_id"], name: "index_user_emotions_on_user_id"
@@ -100,7 +102,4 @@ ActiveRecord::Schema.define(version: 20171105231936) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "goals", "entries"
-  add_foreign_key "journals", "entries"
-  add_foreign_key "user_emotions", "entries"
 end
