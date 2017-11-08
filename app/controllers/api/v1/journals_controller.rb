@@ -9,15 +9,7 @@ class Api::V1::JournalsController < ApplicationController
   end
 
   def create
-    journal_data = JSON.parse(request.body.read)
-    journal_entry = journal_data["journalEntry"]
-    user = User.find(params[:user_id])
-    entry_id = journal_data["entry_id"]
-    Journal.create(
-      journal_entry: journal_entry,
-      user: user,
-      entry_id: entry_id
-    )
+    
   end
 
   def edit

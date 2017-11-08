@@ -29,6 +29,8 @@ class IndexContainer extends Component {
      goalItem5: '',
      goalsPayLoad: [],
 
+     entryPayLoad: {},
+
      journalClass: 'hidden',
      goalsClass: '',
      userEmotionsClass: 'hidden',
@@ -54,9 +56,7 @@ class IndexContainer extends Component {
    this.handleGoal5Change = this.handleGoal5Change.bind(this)
    this.createGoalsPayLoad = this.createGoalsPayLoad.bind(this)
 
-   this.handleJournalSubmit = this.handleJournalSubmit.bind(this)
-   this.handleUserEmotionsSubmit = this.handleUserEmotionsSubmit.bind(this)
-   this.handleGoalsSubmit = this.handleGoalsSubmit.bind(this)
+   this.createEntriesPayLoad = this.createEntriesPayLoad.bind(this)
 
    this.showJournal = this.showJournal.bind(this)
    this.showGoals = this.showGoals.bind(this)
@@ -113,11 +113,7 @@ class IndexContainer extends Component {
  handleSliderPeacefulness(event) {
    this.setState({ peacefulness: event.target.value })
  }
- //
- // updateEntryId(event) {
- //   this.setState({ entry_id:  })
- // }
- //
+
  createEmotionsPayLoad(data) {
    this.state.emotionsPayLoad = {
      happiness: this.state.happiness,
@@ -126,7 +122,6 @@ class IndexContainer extends Component {
      anger: this.state.anger,
      anxiety: this.state.anxiety,
      peacefulness: this.state.peacefulness,
-     entry_id: this.state.entry_id
    }
  }
 
@@ -161,67 +156,31 @@ class IndexContainer extends Component {
  }
 
  journalTruncate() {
-   let shortenedText = ''
-   let arrayOfLetters = this.state.journalEntry.split("")
-   if (this.state.journalEntry.length > 10) {
-     while (shortenedText.length < 30) {
-       arrayOfLetters.forEach(letter => {
-         shortenedText += letter
-       })
-      }
-    } else {
-      shortenedText = this.state.journalEntry
-    }
-    return shortenedText
-  }
-
- handleJournalSubmit(data) {
-   let shortenedJournal = this.journalTruncate()
-   fetch(`/api/v1/users/${this.state.currentUser.id}/journals`, {
-     method: 'POST',
-     credentials: 'same-origin',
-     headers: { 'Content-Type': 'application/json' },
-     body: JSON.stringify({journalEntry: this.state.journalEntry, entry_id: data, truncatedJournalEntry: shortenedJournal})
-   })
+   this.state.journalEntry.slice(0, 30)
  }
 
- handleUserEmotionsSubmit(data) {
-   this.setState({ entry_id: data })
-   this.createEmotionsPayLoad(data)
-   fetch(`/api/v1/users/${this.state.currentUser.id}/user_emotions`, {
-     method: 'POST',
-     credentials: 'same-origin',
-     headers: { 'Content-Type': 'application/json' },
-     body: JSON.stringify(this.state.emotionsPayLoad)
-   })
- }
-
- handleGoalsSubmit() {
+ createEntriesPayLoad() {
+   this.createEmotionsPayLoad()
    this.createGoalsPayLoad()
-   fetch(`/api/v1/users/${this.state.currentUser.id}/goals`, {
-     method: 'POST',
-     credentials: 'same-origin',
-     headers: { 'Content-Type': 'application/json' },
-     body: JSON.stringify(this.state.goalsPayLoad)
-   })
- }
 
- createEntryPayload() {
+   this.state.entryPayLoad = {
+     goalsPayLoad: this.state.goalsPayLoad,
 
+     journalEntry: this.state.journalEntry,
+     truncatedJournalEntry: this.journalTruncate(),
+
+     emotionsPayLoad: this.state.emotionsPayLoad
+   }
  }
 
  handleTotalEntrySubmit() {
    event.preventDefault();
+   this.createEntriesPayLoad()
    fetch(`/api/v1/users/${this.state.currentUser.id}/entries`, {
      method: 'POST',
+     credentials: 'same-origin',
      headers: { 'Content-Type': 'application/json' },
-     credentials: 'same-origin'
-   })
-   .then(response => response.json())
-   .then(data => {
-    //  this.handleGoalsSubmit()
-     this.handleJournalSubmit(data.entry_id)
-     this.handleUserEmotionsSubmit(data.entry_id)
+     body: JSON.stringify(this.state.entryPayLoad)
    })
  }
 
@@ -299,7 +258,6 @@ class IndexContainer extends Component {
 
     } else {
       frontPageComponent = <FrontPageComponent />
-      this.hideGraph()
     }
     let buttons = [["Set Daily Goals", this.showGoals], ["Challenges", this.showJournal], ["Journal", this.showJournal], ["Rate Your Emotions", this.showEmotions]]
     let sectionButtons = buttons.map(button => {

@@ -9,19 +9,7 @@ class Api::V1::UserEmotionsController < ApplicationController
   end
 
   def create
-    binding.pry
-    ratings = JSON.parse(request.body.read)
-    user = User.find(params[:user_id])
-    entry_id = ratings["entry_id"]
-    ratings.each do |emotion_name, rating|
-      emotion = Emotion.find_by_feeling(emotion_name)
-      UserEmotion.create(
-        user: user,
-        entry_id: entry_id,
-        emotion: emotion,
-        rating: rating
-      )
-    end
+
   end
 
   def graph_data
@@ -40,11 +28,14 @@ class Api::V1::UserEmotionsController < ApplicationController
       peacefulness = entry.find_rating('peacefulness')
       data << [time, happiness, sadness, excitement, anger, anxiety, peacefulness]
     end
+
+    data << [0, 0, 0, 0, 0, 0, 0] if entries.count == 0
+
     render json: data
   end
 
   def edit
-    # user_emotion = Entry.find(params[])
+    
   end
 
   def update
