@@ -9,13 +9,17 @@ class Api::V1::GoalsController < ApplicationController
   end
 
   def create
+    binding.pry
     goals = JSON.parse(request.body.read)
     user = User.find(params[:user_id])
-    entry = Entry.find(params[:entry_id])
-    Goal.create(
-      user: user,
-      goal_item: goals
-    )
+    entry_id = goals["entry_id"]
+    goals.each do |item_number, goal|
+      Goal.create(
+        user: user,
+        entry_id: entry_id,
+        goal_item: goal[1]
+      )
+    end
   end
 
   def edit

@@ -86,7 +86,6 @@ class IndexContainer extends Component {
  }
 
  handleSliderHappiness(event) {
-   debugger;
    this.setState({ happiness: event.target.value })
  }
 
@@ -151,25 +150,63 @@ class IndexContainer extends Component {
    }
  }
 
- handleTotalEntrySubmit() {
-   event.preventDefault();
+ journalTruncate() {
+   let shortenedText = ''
+   let arrayOfLetters = this.state.journalEntry.split("")
+   if (this.state.journalEntry.length > 10) {
+     while (shortenedText.length < 30) {
+       arrayOfLetters.forEach(letter => {
+         shortenedText += letter
+       })
+      }
+    } else {
+      shortenedText = this.state.journalEntry
+    }
+    return shortenedText
+  }
 
+ handleJournalSubmit(data) {
+   let shortenedJournal = this.journalTruncate()
    fetch(`/api/v1/users/${this.state.currentUser.id}/journals`, {
      method: 'POST',
      credentials: 'same-origin',
-     body: this.state.journalEntry
+     headers: { 'Content-Type': 'application/json' },
+     body: JSON.stringify({journalEntry: this.state.journalEntry, entry_id: data, truncatedJournalEntry: shortenedJournal})
    })
+ }
+
+ handleUserEmotionsSubmit() {
    this.createEmotionsPayLoad()
    fetch(`/api/v1/users/${this.state.currentUser.id}/user_emotions`, {
      method: 'POST',
      credentials: 'same-origin',
+     headers: { 'Content-Type': 'application/json' },
      body: JSON.stringify(this.state.emotionsPayLoad)
    })
+ }
+
+ handleGoalsSubmit() {
    this.createGoalsPayLoad()
    fetch(`/api/v1/users/${this.state.currentUser.id}/goals`, {
      method: 'POST',
      credentials: 'same-origin',
+     headers: { 'Content-Type': 'application/json' },
      body: JSON.stringify(this.state.goalsPayLoad)
+   })
+ }
+
+ handleTotalEntrySubmit() {
+   event.preventDefault();
+   fetch(`/api/v1/users/${this.state.currentUser.id}/entries`, {
+     method: 'POST',
+     headers: { 'Content-Type': 'application/json' },
+     credentials: 'same-origin'
+   })
+   .then(response => response.json())
+   .then(data => {
+     this.handleGoalsSubmit()
+     this.handleJournalSubmit(data.entry_id)
+    //  this.handleUserEmotionsSubmit(data.entry_id)
    })
  }
 

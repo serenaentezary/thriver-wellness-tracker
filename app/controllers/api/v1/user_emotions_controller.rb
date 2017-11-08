@@ -9,14 +9,15 @@ class Api::V1::UserEmotionsController < ApplicationController
   end
 
   def create
+    binding.pry
     ratings = JSON.parse(request.body.read)
     user = User.find(params[:user_id])
-    entry = Entry.create()
+    entry_id = ratings["entry_id"]
     ratings.each do |emotion_name, rating|
       emotion = Emotion.find_by_feeling(emotion_name)
       UserEmotion.create(
         user: user,
-        entry: entry,
+        entry_id: entry_id,
         emotion: emotion,
         rating: rating
       )
@@ -31,12 +32,12 @@ class Api::V1::UserEmotionsController < ApplicationController
     ]
     entries.each do |entry|
       time = entry.created_at.strftime('%a %d %b %Y')
-      happiness = entry.rating('happiness').to_i
-      sadness = entry.rating('sadness').to_i
-      excitement = entry.rating('excitement').to_i
-      anger = entry.rating('anger')
-      anxiety = entry.rating('anxiety')
-      peacefulness = entry.rating('peacefulness')
+      happiness = entry.find_rating('happiness').to_i
+      sadness = entry.find_rating('sadness').to_i
+      excitement = entry.find_rating('excitement').to_i
+      anger = entry.find_rating('anger')
+      anxiety = entry.find_rating('anxiety')
+      peacefulness = entry.find_rating('peacefulness')
       data << [time, happiness, sadness, excitement, anger, anxiety, peacefulness]
     end
     render json: data

@@ -12,7 +12,7 @@ class GraphContainer extends Component {
   }
 
   componentDidMount() {
-    fetch(`/api/v1/users/${this.props.currentUser.id}/entries/${this.props.entry_id}/user_emotions/graph_data`, {
+    fetch(`/api/v1/users/${this.props.currentUser.id}/user_emotions/graph_data`, {
       credentials: 'same-origin',
       method: 'GET'
     })

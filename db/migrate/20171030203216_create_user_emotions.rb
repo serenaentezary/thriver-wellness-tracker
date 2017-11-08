@@ -3,7 +3,6 @@ class CreateUserEmotions < ActiveRecord::Migration[5.1]
     create_table :user_emotions do |t|
       t.belongs_to :user, null: false
       t.belongs_to :emotion, null: false
-      t.belongs_to :entry, null: false
       t.integer :rating
 
       t.timestamps
