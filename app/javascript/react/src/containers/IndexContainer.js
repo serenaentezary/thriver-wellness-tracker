@@ -10,6 +10,7 @@ class IndexContainer extends Component {
    super(props);
    this.state = {
      currentUser: {},
+     entry_id: '',
 
      journalEntry: '',
 
@@ -52,6 +53,10 @@ class IndexContainer extends Component {
    this.handleGoal4Change = this.handleGoal4Change.bind(this)
    this.handleGoal5Change = this.handleGoal5Change.bind(this)
    this.createGoalsPayLoad = this.createGoalsPayLoad.bind(this)
+
+   this.handleJournalSubmit = this.handleJournalSubmit.bind(this)
+   this.handleUserEmotionsSubmit = this.handleUserEmotionsSubmit.bind(this)
+   this.handleGoalsSubmit = this.handleGoalsSubmit.bind(this)
 
    this.showJournal = this.showJournal.bind(this)
    this.showGoals = this.showGoals.bind(this)
@@ -108,15 +113,20 @@ class IndexContainer extends Component {
  handleSliderPeacefulness(event) {
    this.setState({ peacefulness: event.target.value })
  }
-
- createEmotionsPayLoad() {
+ //
+ // updateEntryId(event) {
+ //   this.setState({ entry_id:  })
+ // }
+ //
+ createEmotionsPayLoad(data) {
    this.state.emotionsPayLoad = {
      happiness: this.state.happiness,
      sadness: this.state.sadness,
      excitement: this.state.excitement,
      anger: this.state.anger,
      anxiety: this.state.anxiety,
-     peacefulness: this.state.peacefulness
+     peacefulness: this.state.peacefulness,
+     entry_id: this.state.entry_id
    }
  }
 
@@ -175,8 +185,9 @@ class IndexContainer extends Component {
    })
  }
 
- handleUserEmotionsSubmit() {
-   this.createEmotionsPayLoad()
+ handleUserEmotionsSubmit(data) {
+   this.setState({ entry_id: data })
+   this.createEmotionsPayLoad(data)
    fetch(`/api/v1/users/${this.state.currentUser.id}/user_emotions`, {
      method: 'POST',
      credentials: 'same-origin',
@@ -195,6 +206,10 @@ class IndexContainer extends Component {
    })
  }
 
+ createEntryPayload() {
+
+ }
+
  handleTotalEntrySubmit() {
    event.preventDefault();
    fetch(`/api/v1/users/${this.state.currentUser.id}/entries`, {
@@ -204,9 +219,9 @@ class IndexContainer extends Component {
    })
    .then(response => response.json())
    .then(data => {
-     this.handleGoalsSubmit()
+    //  this.handleGoalsSubmit()
      this.handleJournalSubmit(data.entry_id)
-    //  this.handleUserEmotionsSubmit(data.entry_id)
+     this.handleUserEmotionsSubmit(data.entry_id)
    })
  }
 
