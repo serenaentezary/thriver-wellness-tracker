@@ -2,7 +2,9 @@ class Api::V1::EntriesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-
+    user = current_user
+    entries = user.entries
+    render json: entries
   end
 
   def create
@@ -16,7 +18,7 @@ class Api::V1::EntriesController < ApplicationController
     Journal.create(
       journal_entry: journal_entry,
       user: user,
-      # entry: entry
+      entry: entry
     )
 
     emotions_payload = entry_data["emotionsPayLoad"]
@@ -38,5 +40,43 @@ class Api::V1::EntriesController < ApplicationController
         goal_item: goal
       )
     end
+  end
+
+  def show
+    user = current_user
+    entry = Entry.find(params[:id])
+    render json: entry
+  end
+
+  def edit
+    entry = Entry.find(params[:id])
+  end
+
+  def update
+    user = current_user
+    entry = Entry.find(params[:id])
+    new_data = JSON.parse(request.body.read)
+    journal_entry = new_data["journalEntry"]
+    entry.journals[0].update(journal_entry: journal_entry)
+
+    user_emotions = new_data["emotionsPayLoad"]
+    user_emotions.each do |emotion_name, rating|
+      emotion = Emotion.find_by_feeling(emotion_name)
+      user_emotion = entry.user_emotions.where(emotion: emotion)[0]
+      user_emotion.update(
+        rating: rating
+      )
+    end
+
+    goals = new_data["goalsPayLoad"]
+    goals.each_with_index do |item_number, goal, index|
+      entry.goals[index].update(goal_item: goal)
+    end
+
+  end
+
+  def destroy
+    entry = Entry.find(params[:id])
+
   end
 end

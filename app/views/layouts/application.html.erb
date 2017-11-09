@@ -20,13 +20,33 @@
         </header>
       </div>
       <div class="sign-in">
-        <nav>
-          <% if user_signed_in? %>
-            <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-          <% else %>
-            <%= link_to "Log In", new_user_session_path %> /
-            <%= link_to "Sign Up", new_user_registration_path %>
-          <% end %>
+        <nav class="top-bar" data-topbar role"navigation">
+          <section class="top-bar-section">
+             <ul class="right">
+               <% if user_signed_in? %>
+                 <li class="has-dropdown">
+                   <a href="#">See All Entries</a>
+                   <ul class="dropdown">
+                       <% user = current_user.id %>
+                       <li><%= link_to "Goals", goals_path %></li>
+                       <li><%= link_to "Journal Entries", journals_path %></li>
+                       <li><%= link_to "Emotion Ratings", user_emotions_path %></li>
+                   </ul>
+                 </li>
+                 <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+                 <% else %>
+                 <%= link_to "Log In", new_user_session_path %>/
+                 <%= link_to "Sign Up", new_user_registration_path %>
+               </ul>
+             <% end %>
+
+             <ul class="left">
+
+             </ul>
+           </section>
+          </nav>
+
+
         </nav>
       </div>
       <div class="flash">

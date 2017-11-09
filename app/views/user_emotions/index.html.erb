@@ -1,1 +1,7 @@
-<%= javascript_pack_tag 'index.js' %>
+<div class="user-emotions-data">
+  <ul>
+    <% @user_emotions.each do |user_emotion| %>
+      <li><%= user_emotion.rating %><br />Created At: <%= user_emotion.created_at.strftime('%a %d %b %Y') %></li>
+    <% end %>
+  </ul>
+</div>

@@ -4,6 +4,8 @@ import JournalContainer from './JournalContainer'
 import GoalsContainer from './GoalsContainer'
 import FrontPageComponent from '../components/FrontPageComponent'
 import GraphContainer from './GraphContainer'
+import EntriesContainer from './EntriesContainer'
+import EntryShowContainer from './EntryShowContainer'
 
 class IndexContainer extends Component {
  constructor(props) {
@@ -155,19 +157,16 @@ class IndexContainer extends Component {
    }
  }
 
- journalTruncate() {
-   this.state.journalEntry.slice(0, 30)
- }
-
  createEntriesPayLoad() {
    this.createEmotionsPayLoad()
    this.createGoalsPayLoad()
 
    this.state.entryPayLoad = {
+     currentUser: this.state.currentUser,
+
      goalsPayLoad: this.state.goalsPayLoad,
 
      journalEntry: this.state.journalEntry,
-     truncatedJournalEntry: this.journalTruncate(),
 
      emotionsPayLoad: this.state.emotionsPayLoad
    }
@@ -208,6 +207,8 @@ class IndexContainer extends Component {
    let goalsContainer;
    let frontPageComponent;
    let graphContainer;
+   let entriesContainer;
+   let entryShowContainer;
    if (this.state.currentUser) {
      journalContainer = <JournalContainer
        currentUser={this.state.currentUser}
@@ -217,6 +218,7 @@ class IndexContainer extends Component {
        handleClearJournalForm={this.handleClearJournalForm}
        journalClass={this.state.journalClass}
       />
+
      userEmotionContainer = <UserEmotionContainer
        currentUser={this.state.currentUser}
        handleSliderHappiness={this.handleSliderHappiness}
@@ -233,8 +235,8 @@ class IndexContainer extends Component {
        anxiety={this.state.anxiety}
        peacefulness={this.state.peacefulness}
        userEmotionsClass={this.state.userEmotionsClass}
-
      />
+
      goalsContainer = <GoalsContainer
        currentUser={this.state.currentUser}
        goalsClass={this.state.goalsClass}
@@ -254,6 +256,14 @@ class IndexContainer extends Component {
        currentUser={this.state.currentUser}
        graphClass={this.state.graphClass}
        hideGraph={this.hideGraph}
+     />
+
+     entriesContainer = <EntriesContainer
+       currentUser={this.state.currentUser}
+     />
+
+     entryShowContainer = <EntryShowContainer
+       currentUser={this.state.currentUser}
      />
 
     } else {

@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
-import IndexContainer from './IndexContainer'
 
 class EntryShowContainer extends Component {
  constructor(props) {
    super(props);
    this.state = {
-     totalEntry: [],
-     selectedSection: null
+     entry: []
    }
 
+ }
+
+ componentDidMount() {
+   debugger;
+   fetch(`/api/v1/users/${this.props.currentUser}/entries/${this.props.match.params.id}`, {
+     credentials: 'same-origin',
+     method: 'GET',
+     headers: { 'Content-Type': 'application/json' }
+   })
+   .then(response => response.json())
+   .then(body => {
+     this.setState({
+       entry: body.entry
+     })
+   })
  }
 
 
@@ -17,6 +30,8 @@ class EntryShowContainer extends Component {
 
    return(
      <div>
+
+       <li>{this.state.entry.created_at}</li>
 
      </div>
    )

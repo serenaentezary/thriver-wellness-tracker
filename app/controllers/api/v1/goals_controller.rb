@@ -8,16 +8,11 @@ class Api::V1::GoalsController < ApplicationController
     render json: goals
   end
 
-  def edit
-
-  end
-
   def update
-    user = current_user
-    goals = Goal.find(params[:id])
+
   end
 
   def destroy
-
+  
   end
 end

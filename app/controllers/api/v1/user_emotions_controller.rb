@@ -4,8 +4,13 @@ class Api::V1::UserEmotionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :update]
 
   def index
-    user_emotions = UserEmotion.all
+    user = current_user
+    user_emotions = user.user_emotions
     render json: user_emotions
+  end
+
+  def show
+    
   end
 
   def create
@@ -35,7 +40,7 @@ class Api::V1::UserEmotionsController < ApplicationController
   end
 
   def edit
-    
+
   end
 
   def update

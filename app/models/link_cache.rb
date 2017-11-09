@@ -1,2 +1,3 @@
 class LinkCache < ApplicationRecord
+  
 end
