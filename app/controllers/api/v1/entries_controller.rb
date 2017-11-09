@@ -44,17 +44,22 @@ class Api::V1::EntriesController < ApplicationController
 
   def show
     user = current_user
-    entry = Entry.find(params[:id])
+    entry = user.entries.find(params[:id])
+    journal_entry = entry.journals[0]
+    goals = entry.goals
+    user_emotions = entry.user_emotions
+
     render json: entry
   end
 
   def edit
-    entry = Entry.find(params[:id])
+    user = current_user
+    entry = user.entries.find(params[:id])
   end
 
   def update
     user = current_user
-    entry = Entry.find(params[:id])
+    entry = user.entries.find(params[:id])
     new_data = JSON.parse(request.body.read)
     journal_entry = new_data["journalEntry"]
     entry.journals[0].update(journal_entry: journal_entry)

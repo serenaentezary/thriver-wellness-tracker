@@ -4,7 +4,8 @@ class Api::V1::GoalsController < ApplicationController
 
 
   def index
-    goals = Goal.all
+    user = current_user
+    goals = user.goals
     render json: goals
   end
 
@@ -13,6 +14,6 @@ class Api::V1::GoalsController < ApplicationController
   end
 
   def destroy
-  
+
   end
 end

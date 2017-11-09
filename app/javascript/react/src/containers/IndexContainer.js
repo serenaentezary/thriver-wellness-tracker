@@ -6,6 +6,7 @@ import FrontPageComponent from '../components/FrontPageComponent'
 import GraphContainer from './GraphContainer'
 import EntriesContainer from './EntriesContainer'
 import EntryShowContainer from './EntryShowContainer'
+import EntryEditContainer from './EntryEditContainer'
 
 class IndexContainer extends Component {
  constructor(props) {
@@ -209,6 +210,8 @@ class IndexContainer extends Component {
    let graphContainer;
    let entriesContainer;
    let entryShowContainer;
+   let entryEditContainer;
+
    if (this.state.currentUser) {
      journalContainer = <JournalContainer
        currentUser={this.state.currentUser}
@@ -266,6 +269,11 @@ class IndexContainer extends Component {
        currentUser={this.state.currentUser}
      />
 
+     entryEditContainer = <EntryEditContainer
+       currentUser={this.state.currentUser}
+
+     />
+
     } else {
       frontPageComponent = <FrontPageComponent />
     }
@@ -296,6 +304,7 @@ class IndexContainer extends Component {
           </div>
           <div className="large-2 small-2 columns">
             <h3>Latest Entry</h3>
+            <h3>Recent Articles</h3>
           </div>
        </div>
        {graphContainer}

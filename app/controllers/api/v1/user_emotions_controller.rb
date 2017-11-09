@@ -1,7 +1,6 @@
 class Api::V1::UserEmotionsController < ApplicationController
   require 'date'
   protect_from_forgery unless: -> { request.format.json? }
-  skip_before_action :verify_authenticity_token, only: [:create, :update]
 
   def index
     user = current_user
@@ -10,7 +9,7 @@ class Api::V1::UserEmotionsController < ApplicationController
   end
 
   def show
-    
+
   end
 
   def create
