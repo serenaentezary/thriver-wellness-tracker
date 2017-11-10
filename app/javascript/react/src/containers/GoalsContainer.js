@@ -5,27 +5,16 @@ class GoalsContainer extends Component {
    constructor(props) {
      super(props);
      this.state = {
-       goalItem1: ''
-     }
-     this.handleClearForm = this.handleClearForm.bind(this)
 
-   }
-   handleClearForm(event) {
-     event.preventDefault();
-     this.setState({
-       goalItem1: '',
-       goalItem2: '',
-       goalItem3: '',
-       goalItem4: '',
-       goalItem5: ''
-     })
+     }
+     // this.handleClearForm = this.handleClearForm.bind(this)
 
    }
 
    render() {
 
      return(
-       <div>
+       <div className="goals-entry">
          <GoalComponent
            goalItem1={this.props.goalItem1}
            goalItem2={this.props.goalItem2}

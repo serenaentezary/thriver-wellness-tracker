@@ -28,7 +28,7 @@ class UserEmotionContainer extends Component {
               <h5>How are you feeling at this moment? Please rate your emotions on a scale of 0 - 100.</h5>
 
               <p className="happy">Happy</p>
-              <input onChange={this.props.handleSliderHappiness} list="tickmarks" className="small-6 large-8 columns" type="range" defaultValue={50} />{this.props.happiness}<br />
+              <input onChange={this.props.handleSliderHappiness} className="small-6 large-8 columns" type="range" defaultValue={50} />{this.props.happiness}<br />
 
               <p className="sad">Sad</p>
               <input onChange={this.props.handleSliderSadness} className="small-6 large-8 columns" type="range" defaultValue={50} />{this.props.sadness}<br />

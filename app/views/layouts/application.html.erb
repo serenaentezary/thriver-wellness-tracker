@@ -25,9 +25,10 @@
              <ul class="right">
                <% if user_signed_in? %>
                  <li class="has-dropdown">
-                   <a href="#">See All Entries</a>
+                   <a href="#">See How Things Changed</a>
                    <ul class="dropdown">
                        <% user = current_user.id %>
+                       <li><%= link_to "All Entries", entries_path %></li>
                        <li><%= link_to "Goals", goals_path %></li>
                        <li><%= link_to "Journal Entries", journals_path %></li>
                        <li><%= link_to "Emotion Ratings", user_emotions_path %></li>

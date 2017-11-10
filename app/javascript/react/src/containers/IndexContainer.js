@@ -7,6 +7,7 @@ import GraphContainer from './GraphContainer'
 import EntriesContainer from './EntriesContainer'
 import EntryShowContainer from './EntryShowContainer'
 import EntryEditContainer from './EntryEditContainer'
+import SubmitTile from '../components/SubmitTile'
 
 class IndexContainer extends Component {
  constructor(props) {
@@ -14,6 +15,15 @@ class IndexContainer extends Component {
    this.state = {
      currentUser: {},
      entry_id: '',
+
+     latestEntry: {},
+     latestJournalEntry: '',
+     latestGoals: [],
+     latestUserEmotions: [],
+
+     randomArticle1: [],
+     randomArticle2: [],
+     randomArticle3: [],
 
      journalEntry: '',
 
@@ -37,8 +47,10 @@ class IndexContainer extends Component {
      journalClass: 'hidden',
      goalsClass: '',
      userEmotionsClass: 'hidden',
+     submitClass: 'hidden',
      graphClass: ''
    }
+
    this.handleJournalChange = this.handleJournalChange.bind(this)
    this.handleJournalState = this.handleJournalState.bind(this)
    this.handleClearJournalForm = this.handleClearJournalForm.bind(this)
@@ -65,6 +77,8 @@ class IndexContainer extends Component {
    this.showGoals = this.showGoals.bind(this)
    this.showEmotions = this.showEmotions.bind(this)
    this.hideGraph = this.hideGraph.bind(this)
+   this.showSubmit = this.showSubmit.bind(this)
+
  }
 
  componentDidMount() {
@@ -76,7 +90,35 @@ class IndexContainer extends Component {
    .then(body => {
      this.setState({ currentUser: body.user })
    })
+   fetch(`/api/v1/users/${this.state.currentUser.id}/entries`, {
+     credentials: 'same-origin',
+     method: 'GET'
+   })
+   .then(response => response.json())
+   .then(body => {
+     let lastEntry = body.entries[body.entries.length - 1]
+     this.setState({
+       latestEntry: lastEntry,
+       latestJournalEntry: lastEntry.journals[0].journal_entry.slice(0, 20),
+       latestGoals: lastEntry.goals[0].goal_item,
+       latestUserEmotions: lastEntry.user_emotions[0].rating
+      })
+   })
+   fetch(`/api/v1/link_caches/random_articles`, {
+     credentials: 'same-origin',
+     method: 'GET'
+   })
+   .then(response => response.json())
+   .then(body => {
+     this.setState({
+       randomArticle1: [body.link_caches[0].link, body.link_caches[0].title],
+       randomArticle2: [body.link_caches[1].link, body.link_caches[1].title],
+       randomArticle3: [body.link_caches[2].link, body.link_caches[2].title]
+     })
+   })
  }
+
+
 
  handleJournalChange(event) {
    let newValue = event.target.value
@@ -185,15 +227,19 @@ class IndexContainer extends Component {
  }
 
  showJournal() {
-   this.setState({ journalClass: '', goalsClass: 'hidden', userEmotionsClass: 'hidden' })
+   this.setState({ journalClass: '', goalsClass: 'hidden', userEmotionsClass: 'hidden', submitClass: 'hidden' })
  }
 
  showGoals() {
-  this.setState({ journalClass: 'hidden', goalsClass: '', userEmotionsClass: 'hidden' })
+  this.setState({ journalClass: 'hidden', goalsClass: '', userEmotionsClass: 'hidden', submitClass: 'hidden' })
  }
 
  showEmotions() {
-   this.setState({ journalClass: 'hidden', goalsClass: 'hidden', userEmotionsClass: '' })
+   this.setState({ journalClass: 'hidden', goalsClass: 'hidden', userEmotionsClass: '', submitClass: 'hidden' })
+ }
+
+ showSubmit() {
+   this.setState({ journalClass: 'hidden', goalsClass: 'hidden', userEmotionsClass: 'hidden', submitClass: '' })
  }
 
  hideGraph() {
@@ -201,7 +247,10 @@ class IndexContainer extends Component {
  }
 
  render() {
+
    let handleEntryClick = () => { this.handleTotalEntrySubmit() }
+
+   let latestEntryOnPage = () => { this.createLatestEntry() }
 
    let journalContainer;
    let userEmotionContainer;
@@ -211,6 +260,7 @@ class IndexContainer extends Component {
    let entriesContainer;
    let entryShowContainer;
    let entryEditContainer;
+   let submitTile;
 
    if (this.state.currentUser) {
      journalContainer = <JournalContainer
@@ -255,6 +305,12 @@ class IndexContainer extends Component {
        handleGoal5Change={this.handleGoal5Change}
      />
 
+     submitTile = <SubmitTile
+       currentUser={this.state.currentUser}
+       submitButton={handleEntryClick}
+       submitClass={this.state.submitClass}
+     />
+
      graphContainer = <GraphContainer
        currentUser={this.state.currentUser}
        graphClass={this.state.graphClass}
@@ -271,13 +327,12 @@ class IndexContainer extends Component {
 
      entryEditContainer = <EntryEditContainer
        currentUser={this.state.currentUser}
-
      />
 
     } else {
       frontPageComponent = <FrontPageComponent />
     }
-    let buttons = [["Set Daily Goals", this.showGoals], ["Challenges", this.showJournal], ["Journal", this.showJournal], ["Rate Your Emotions", this.showEmotions]]
+    let buttons = [["Set Daily Goals", this.showGoals], ["Journal", this.showJournal], ["Rate Your Emotions", this.showEmotions], ["Submit Entry", this.showSubmit]]
     let sectionButtons = buttons.map(button => {
       return(
         <div key={button[0]}>
@@ -300,11 +355,16 @@ class IndexContainer extends Component {
            {userEmotionContainer}
            {goalsContainer}
            {journalContainer}
-           <button type="button" onClick={handleEntryClick}>Submit Entry</button>
+           {submitTile}
           </div>
           <div className="large-2 small-2 columns">
             <h3>Latest Entry</h3>
+              {this.state.latestJournalEntry}
+              {this.state.latestGoals}
             <h3>Recent Articles</h3>
+            <a href={this.state.randomArticle1[0]}>{this.state.randomArticle1[1]}</a><br />
+            <a href={this.state.randomArticle2[0]}>{this.state.randomArticle2[1]}</a><br />
+            <a href={this.state.randomArticle3[0]}>{this.state.randomArticle3[1]}</a><br />
           </div>
        </div>
        {graphContainer}

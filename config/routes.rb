@@ -14,6 +14,11 @@ Rails.application.routes.draw do
         resources :journals, except: [:new]
         resources :goals, except: [:new]
       end
+      resources :link_caches, only: [:index] do
+        collection do
+          get :random_articles
+        end
+      end
       namespace :users do
         get 'is_signed_in', to: 'users#show'
       end

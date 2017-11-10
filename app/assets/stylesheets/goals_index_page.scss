@@ -1,0 +1,22 @@
+.goals-index-container {
+  display: flex;
+  justify-content: center;
+}
+
+.goals-index {
+  display: flex;
+  margin: 2%;
+  width: 40%;
+  border: 2px solid black;
+  border-width: medium;
+  border-radius: 20px;
+  height: 5%;
+  background-color: white;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+.goals-list {
+  display: flex;
+  border-color: #4D5176;
+}

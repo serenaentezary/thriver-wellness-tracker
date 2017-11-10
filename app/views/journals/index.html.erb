@@ -1,5 +1,10 @@
-<ul>
-  <% @journals.each do |journal_entry| %>
-    <li><%= journal_entry[0] %></li>
-  <% end %>
-</ul>
+<div class="journal-index-container">
+  <div class="journal-index">
+    <ul class="journal-list">
+      <% @journals.each do |journal_entry| %>
+        <%= journal_entry.created_at.strftime('%a %d %b %Y') %><br />
+        <%= journal_entry.journal_entry %>
+      <% end %>
+    </ul>
+  </div>
+</div>

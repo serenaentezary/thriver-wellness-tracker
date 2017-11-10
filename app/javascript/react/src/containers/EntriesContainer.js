@@ -30,7 +30,7 @@ class EntriesContainer extends Component {
          <ul>
            <li key={entry.id}>{entry.created_at}</li>
 
-           <li key={entry.journals[0].id}>{entry.journals[0].journal_entry.slice(0, 30)}</li>
+           <li key={entry.journals[0].id}>{entry.journals[0].journal_entry.slice(0, 20)}</li>
            <ul>
              <li key={entry.goals[0].id}>{entry.goals[0].goal_item}</li>
              <li key={entry.goals[1].id}>{entry.goals[1].goal_item}</li>

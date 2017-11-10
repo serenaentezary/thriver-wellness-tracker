@@ -3,6 +3,7 @@ import UserEmotionContainer from './UserEmotionContainer'
 import JournalContainer from './JournalContainer'
 import GoalsContainer from './GoalsContainer'
 import GraphContainer from './GraphContainer'
+import EntryShowContainer from './EntryShowContainer'
 
 class EntryEditContainer extends Component {
  constructor(props) {
@@ -13,7 +14,7 @@ class EntryEditContainer extends Component {
      oldUserEmotions: [],
      oldGoals: []
    }
-
+   this.handleEntryUpdateSubmit = this.handleEntryUpdateSubmit.bind(this)
  }
 
  componentDidMount() {
@@ -33,11 +34,13 @@ class EntryEditContainer extends Component {
    })
  }
 
+ 
+
  handleEntryUpdateSubmit() {
    event.preventDefault();
    this.createEntriesPayLoad()
    fetch(`/api/v1/users/${this.state.currentUser.id}/entries`, {
-     method: 'POST',
+     method: 'PATCH',
      credentials: 'same-origin',
      headers: { 'Content-Type': 'application/json' },
      body: JSON.stringify(this.state.entryPayLoad)

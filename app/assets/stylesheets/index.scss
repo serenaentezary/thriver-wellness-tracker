@@ -20,10 +20,14 @@ nav {
   background-color: #4D5176;
   margin: 0rem;
   padding: 0rem;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
 }
 
 .side-buttons {
   margin-right: 3rem;
+  opacity: 0.9;
+  filter: alpha(opacity=90);
 }
 
 h1 {
@@ -50,9 +54,21 @@ h1.thriver {
 }
 
 .google-chart {
-
+  opacity: 0.8;
+  filter: alpha(opacity=80);
 }
 
 .user-emotions-data {
   background-color: white;
+}
+
+textarea {
+}
+
+.submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
 }

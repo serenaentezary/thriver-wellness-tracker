@@ -1,5 +1,11 @@
-<ul>
-  <% @goals.each do |goal| %>
-    <li><%= goal.goal_item %></li>
-  <% end %>
-</ul>
+<div class="goals-index-container">
+  <div class="goals-index">
+    <ul class="goals-list">
+      <div class="goals-inner-list">
+      <% @goals.each do |goal| %>
+        <li><%= goal.goal_item %></li>
+      <% end %>
+      </div>
+    </ul>
+  </div>
+</div>
