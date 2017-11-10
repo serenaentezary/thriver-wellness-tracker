@@ -6,7 +6,6 @@ import FrontPageComponent from '../components/FrontPageComponent'
 import GraphContainer from './GraphContainer'
 import EntriesContainer from './EntriesContainer'
 import EntryShowContainer from './EntryShowContainer'
-import EntryEditContainer from './EntryEditContainer'
 import SubmitTile from '../components/SubmitTile'
 
 class IndexContainer extends Component {
@@ -52,7 +51,6 @@ class IndexContainer extends Component {
    }
 
    this.handleJournalChange = this.handleJournalChange.bind(this)
-   this.handleJournalState = this.handleJournalState.bind(this)
    this.handleClearJournalForm = this.handleClearJournalForm.bind(this)
    this.handleTotalEntrySubmit = this.handleTotalEntrySubmit.bind(this)
 
@@ -119,13 +117,7 @@ class IndexContainer extends Component {
  }
 
 
-
  handleJournalChange(event) {
-   let newValue = event.target.value
-   this.setState({ journalEntry: newValue })
- }
-
- handleJournalState(event) {
    this.setState({ journalEntry: event.target.value })
  }
 
@@ -267,7 +259,6 @@ class IndexContainer extends Component {
        currentUser={this.state.currentUser}
        journalEntry={this.state.journalEntry}
        handleJournalChange={this.handleJournalChange}
-       handleJournalState={this.handleJournalState}
        handleClearJournalForm={this.handleClearJournalForm}
        journalClass={this.state.journalClass}
       />
@@ -362,9 +353,9 @@ class IndexContainer extends Component {
               {this.state.latestJournalEntry}
               {this.state.latestGoals}
             <h3>Recent Articles</h3>
-            <a href={this.state.randomArticle1[0]}>{this.state.randomArticle1[1]}</a><br />
-            <a href={this.state.randomArticle2[0]}>{this.state.randomArticle2[1]}</a><br />
-            <a href={this.state.randomArticle3[0]}>{this.state.randomArticle3[1]}</a><br />
+            <div className="article-link"><a href={this.state.randomArticle1[0]}>{this.state.randomArticle1[1]}</a></div>
+            <div className="article-link"><a href={this.state.randomArticle2[0]}>{this.state.randomArticle2[1]}</a></div>
+            <div className="article-link"><a href={this.state.randomArticle3[0]}>{this.state.randomArticle3[1]}</a></div>
           </div>
        </div>
        {graphContainer}

@@ -72,3 +72,16 @@ textarea {
   opacity: 0.8;
   filter: alpha(opacity=80);
 }
+
+.article-link {
+  padding-bottom: 5%;
+}
+
+.article-link a {
+  text-decoration-line: underline;
+  color: black;
+}
+
+.article-link a:hover {
+  color: blue;
+}

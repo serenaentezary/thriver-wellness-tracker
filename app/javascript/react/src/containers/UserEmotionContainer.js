@@ -9,15 +9,6 @@ class UserEmotionContainer extends Component {
 
  }
 
-  // <GraphContainer
-  //   happiness={}
-  //   sadness={}
-  //   excitement={}
-  //   anger={}
-  //   anxiety={}
-  //   happiness={}
-  //   currentUser={this.state.currentUser}
-  // />
   render() {
 
     return(

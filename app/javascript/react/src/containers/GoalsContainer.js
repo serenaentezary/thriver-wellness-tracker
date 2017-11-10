@@ -7,7 +7,6 @@ class GoalsContainer extends Component {
      this.state = {
 
      }
-     // this.handleClearForm = this.handleClearForm.bind(this)
 
    }
 

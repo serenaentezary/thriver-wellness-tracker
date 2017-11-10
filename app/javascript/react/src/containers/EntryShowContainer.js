@@ -5,11 +5,54 @@ class EntryShowContainer extends Component {
    super(props);
    this.state = {
      entry: [],
-     journal: '',
-     userEmotions: [],
-     goals: []
-   }
 
+     journal: '',
+
+     happiness: '',
+     sadness: '',
+     excitement: '',
+     anger: '',
+     anxiety: '',
+     peacefulness: '',
+     updatedEmotionsPayLoad: [],
+
+     goal1: '',
+     goal2: '',
+     goal3: '',
+     goal4: '',
+     goal5: '',
+
+     goalsClass: '',
+     journalClass: 'hidden',
+     userEmotionsClass: 'hidden',
+
+     goalsTabClass: "content active",
+     journalTabClass: "content",
+     userEmotionsTabClass: "content",
+     submitTabClass: "content"
+
+   }
+   this.handleEntryUpdateSubmit = this.handleEntryUpdateSubmit.bind(this)
+
+   this.handleUpdatedJournalChange = this.handleUpdatedJournalChange.bind(this)
+
+   this.handleSliderUpdatedHappiness = this.handleSliderUpdatedHappiness.bind(this)
+   this.handleSliderUpdatedSadness = this.handleSliderUpdatedSadness.bind(this)
+   this.handleSliderUpdatedExcitement = this.handleSliderUpdatedExcitement.bind(this)
+   this.handleSliderUpdatedAnger = this.handleSliderUpdatedAnger.bind(this)
+   this.handleSliderUpdatedAnxiety = this.handleSliderUpdatedAnxiety.bind(this)
+   this.handleSliderUpdatedPeacefulness = this.handleSliderUpdatedPeacefulness.bind(this)
+
+   this.handleUpdateGoal1Change = this.handleUpdateGoal1Change.bind(this)
+   this.handleUpdateGoal2Change = this.handleUpdateGoal2Change.bind(this)
+   this.handleUpdateGoal3Change = this.handleUpdateGoal3Change.bind(this)
+   this.handleUpdateGoal4Change = this.handleUpdateGoal4Change.bind(this)
+   this.handleUpdateGoal5Change = this.handleUpdateGoal5Change.bind(this)
+
+   this.tabClickGoals = this.tabClickGoals.bind(this)
+   this.tabClickJournal = this.tabClickJournal.bind(this)
+   this.tabClickUserEmotions = this.tabClickUserEmotions.bind(this)
+   this.tabClickSubmit = this.tabClickSubmit.bind(this)
  }
 
  componentDidMount() {
@@ -22,39 +65,265 @@ class EntryShowContainer extends Component {
    .then(body => {
      this.setState({
        entry: body.entry,
+
        journal: body.entry.journals[0].journal_entry,
-       userEmotions: body.entry.user_emotions,
-       goals: body.entry.goals
+
+       happiness: body.entry.user_emotions[0].rating,
+       sadness: body.entry.user_emotions[1].rating,
+       excitement: body.entry.user_emotions[2].rating,
+       anger: body.entry.user_emotions[3].rating,
+       anxiety: body.entry.user_emotions[4].rating,
+       peacefulness: body.entry.user_emotions[5].rating,
+
+       goal1: body.entry.goals[0].goal_item,
+       goal2: body.entry.goals[1].goal_item,
+       goal3: body.entry.goals[2].goal_item,
+       goal4: body.entry.goals[3].goal_item,
+       goal5: body.entry.goals[4].goal_item
      })
    })
  }
 
+ handleUpdatedJournalChange(event) {
+   this.setState({ journal: event.target.value })
+ }
+
+ handleSliderUpdatedHappiness(event) {
+   this.setState({ happiness: event.target.value })
+ }
+
+ handleSliderUpdatedSadness(event) {
+   this.setState({ sadness: event.target.value })
+ }
+
+ handleSliderUpdatedExcitement(event) {
+   this.setState({ excitement: event.target.value })
+ }
+
+ handleSliderUpdatedAnger(event) {
+   this.setState({ anger: event.target.value })
+ }
+
+ handleSliderUpdatedAnxiety(event) {
+   this.setState({ anxiety: event.target.value })
+ }
+
+ handleSliderUpdatedPeacefulness(event) {
+   this.setState({ peacefulness: event.target.value })
+ }
+
+ createEmotionsPayLoad(data) {
+   this.state.updatedEmotionsPayLoad = {
+     happiness: this.state.happiness,
+     sadness: this.state.sadness,
+     excitement: this.state.excitement,
+     anger: this.state.anger,
+     anxiety: this.state.anxiety,
+     peacefulness: this.state.peacefulness,
+   }
+ }
+
+ handleUpdateGoal1Change(event) {
+   this.setState({ goal1: event.target.value })
+ }
+
+ handleUpdateGoal2Change(event) {
+   this.setState({ goal2: event.target.value })
+ }
+
+ handleUpdateGoal3Change(event) {
+   this.setState({ goal3: event.target.value })
+ }
+
+ handleUpdateGoal4Change(event) {
+   this.setState({ goal4: event.target.value })
+ }
+
+ handleUpdateGoal5Change(event) {
+   this.setState({ goal5: event.target.value })
+ }
+
+ handleEntryUpdateSubmit() {
+   event.preventDefault();
+   this.createEntriesPayLoad()
+   fetch(`/api/v1/users/${this.state.currentUser.id}/entries`, {
+     method: 'PATCH',
+     credentials: 'same-origin',
+     headers: { 'Content-Type': 'application/json' },
+     body: JSON.stringify(this.state.entryPayLoad)
+   })
+ }
+
+ tabClickGoals() {
+   this.setState({
+     journalTabClass: "content",
+     journalClass: "hidden",
+
+     goalsTabClass: "content active",
+     goalsClass: "",
+
+     userEmotionsTabClass: "content",
+     userEmotionsClass: "hidden",
+
+     submitTabClass: "content",
+     submitClass: "hidden"
+   })
+ }
+
+ tabClickJournal() {
+   this.setState({
+     journalTabClass: "content active",
+     journalClass: "",
+
+     goalsTabClass: "content",
+     goalsClass: "hidden",
+
+     userEmotionsTabClass: "content",
+     userEmotionsClass: "hidden",
+
+     submitTabClass: "content",
+     submitClass: "hidden"
+   })
+ }
+
+ tabClickUserEmotions() {
+   this.setState({
+     journalTabClass: "content",
+     journalClass: "hidden",
+
+     goalsTabClass: "content",
+     goalsClass: "hidden",
+
+     userEmotionsTabClass: "content active",
+     userEmotionsClass: "",
+
+     submitTabClass: "content",
+     submitClass: "hidden"
+   })
+ }
+
+ tabClickSubmit() {
+   this.setState({  journalTabClass: "content",
+    journalClass: "hidden",
+
+    goalsTabClass: "content",
+    goalsClass: "hidden",
+
+    userEmotionsTabClass: "content",
+    userEmotionsClass: "hidden",
+
+    submitTabClass: "content active",
+    submitClass: ""
+  })
+ }
+
  render() {
-   debugger;
-   let ratings = this.state.userEmotions.map(userEmotion => {
+   let handleEntryUpdateClick = () => { this.handleEntryUpdateSubmit() }
+   let handleTabClickGoals = () => { this.tabClickGoals() }
+   let handleTabClickJournal = () => { this.tabClickJournal() }
+   let handleTabClickUserEmotions = () => { this.tabClickUserEmotions() }
+   let handleTabClickSubmit = () => { this.tabClickSubmit() }
+
+   let arrayOfUserEmotionRatingsAndMethods = [
+     ["Happy", this.state.happiness, this.handleSliderUpdatedHappiness],
+     ["Sad", this.state.sadness, this.handleSliderUpdatedSadness],
+     ["Excited", this.state.excitement, this.handleSliderUpdatedExcitement],
+     ["Angry", this.state.anger, this.handleSliderUpdatedAnger],
+     ["Anxious", this.state.anxiety, this.handleSliderUpdatedAnxiety],
+     ["Peaceful", this.state.peacefulness, this.handleSliderUpdatedPeacefulness]
+   ]
+
+   let updateRatings = arrayOfUserEmotionRatingsAndMethods.map(userEmotion => {
      return(
-       <ul>
-         <li key={userEmotion.id}>{userEmotion.rating}</li>
-       </ul>
+       <div key={userEmotion[0]}>
+         <p>{userEmotion[0]}</p>
+         <input onChange={userEmotion[2]} className="small-6 large-8 columns" type="range" value={userEmotion[1]} />{userEmotion[1]}<br />
+     </div>
      )
    })
 
-   let goalItems = this.state.goals.map(goal => {
+   let updatedGoalsList = [
+     ["Goal #1", this.handleUpdateGoal1Change, this.state.goal1],
+     ["Goal #2", this.handleUpdateGoal2Change, this.state.goal2],
+     ["Goal #3", this.handleUpdateGoal3Change, this.state.goal3],
+     ["Goal #4", this.handleUpdateGoal4Change, this.state.goal4],
+     ["Goal #5", this.handleUpdateGoal5Change, this.state.goal5]
+   ]
+
+   let updatedGoals = updatedGoalsList.map(goal => {
      return(
-       <ul>
-         <li key={goal.id}>{goal.goal_item}</li>
-       </ul>
+       <div className="row" key={goal[0]}>
+         <div>
+           {goal[0]}
+           <textarea
+             rows="1"
+             cols="12"
+             className="small-9 large-9 columns"
+             onChange={goal[1]}
+             value={goal[2]}
+           >
+           </textarea>
+         </div>
+       </div>
      )
    })
 
    return(
      <div>
-
-       <li>{this.state.entry.created_at}</li>
-       <li>{this.state.journal}</li>
-       <li>{ratings}</li>
-       <li>{goalItems}</li>
-
+       <ul className="tabs" data-tab>
+         <li className="tab-title" onClick={handleTabClickGoals}><a href="#panel1">Edit Goals</a></li>
+         <li className="tab-title" onClick={handleTabClickJournal}><a href="#panel2">Edit Journal</a></li>
+         <li className="tab-title" onClick={handleTabClickUserEmotions}><a href="#panel3">Edit Emotion Ratings</a></li>
+         <li className="tab-title" onClick={handleTabClickSubmit}><a href="#panel4">Submit Updated Entry</a></li>
+       </ul>
+       <div className="tabs-content">
+         <div className={this.state.goalsTabClass} id="panel1">
+           <div className={this.state.goalsClass}>
+             <div className="row">
+               <label>Write up to five goals that you want to set for yourself today. Try to write goals that are reachable within the next 8 - 12 hours. You can cross them off when you're done!<br />
+                 {updatedGoals}
+               </label>
+             </div>
+           </div>
+         </div>
+         <div className={this.state.journalTabClass} id="panel2">
+           <div className={this.state.journalClass}>
+             <div className="row journal-prompt">
+               <label>Feel free to write about your day! What were the highs? The lows? What brought you joy today? If you had a rough day, what can you do to make it better?<br />
+                 <textarea rows="20" cols="40"
+                   id="journal"
+                   name="journal"
+                   onChange={this.handleUpdatedJournalChange}
+                   className="large-12 columns"
+                   value={this.state.journal}
+                 >
+                 </textarea>
+               </label>
+             </div>
+           </div>
+         </div>
+         <div className={this.state.userEmotionsTabClass} id="panel3">
+           <div>
+             <div className={this.state.userEmotionsClass}>
+               <h5>How were you actually feeling at the previous time when you submitted the entry? Please feel free to edit and rate your emotions on a scale of 0 - 100.</h5>
+               <div>
+                 <div id="sliders" className="row">
+                   <div className="large-12 columns">
+                     <div className="wrapping">
+                       {updateRatings}
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+         <div className={this.state.submitTabClass} id="panel4">
+           <div className={this.state.submitClass}>
+             <button className="submit-button" onClick={handleEntryUpdateClick}>Submit Entry!</button>
+           </div>
+         </div>
+       </div>
      </div>
    )
   }

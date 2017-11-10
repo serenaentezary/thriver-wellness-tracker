@@ -6,7 +6,6 @@ const SubmitTile = props => {
       <button className="submit-button" onClick={props.handleEntryClick}>Submit Entry!</button>
     </div>
   )
-
 }
 
 export default SubmitTile;

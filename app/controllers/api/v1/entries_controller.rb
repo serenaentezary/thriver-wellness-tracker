@@ -3,7 +3,7 @@ class Api::V1::EntriesController < ApplicationController
 
   def index
     user = current_user
-    entries = user.entries
+    entries = user.entries.order(created_at: :desc)
     render json: entries
   end
 

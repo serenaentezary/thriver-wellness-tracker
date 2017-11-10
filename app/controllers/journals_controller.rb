@@ -1,7 +1,7 @@
 class JournalsController < ApplicationController
   def index
     @user = current_user
-    @journals = @user.journals
+    @journals = @user.journals.order(created_at: :desc)
   end
 
   def show
