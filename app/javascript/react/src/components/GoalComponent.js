@@ -10,13 +10,13 @@ const GoalComponent = props => {
   ]
   let goalsTiles = goalsList.map(goal => {
     return(
-      <div className="row" key={goal[0]}>
-        <div>
+      <div className="row" id="goal-tile-component-container" key={goal[0]}>
+        <div className="small-11 large-11 columns" id="goal-tile-component-container-2">
           {goal[0]}
           <textarea
             rows="1"
-            cols="12"
-            className="small-9 large-9 columns"
+            cols="40"
+            id="goal-tile-component"
             onChange={goal[1]}
             value={goal[2]}
           >
@@ -28,9 +28,11 @@ const GoalComponent = props => {
   return(
     <div className={props.goalsClass}>
       <div className="row">
-        <label>Write up to five goals that you want to set for yourself today. Try to write goals that are reachable within the next 8 - 12 hours. You can cross them off when you're done!<br />
-          {goalsTiles}
+        <label>Write up to five goals that you want to set for yourself today. Try to write goals that are reachable within the next 8 - 12 hours. You can cross them off later when you're done!<br />
         </label>
+        <div className="goal-tiles">
+          {goalsTiles}
+        </div>
       </div>
     </div>
   )

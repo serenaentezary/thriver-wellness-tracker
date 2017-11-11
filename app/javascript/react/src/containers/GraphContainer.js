@@ -7,7 +7,12 @@ class GraphContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      options: {
+        title: "Track your progress over time!",
+        hAxis: { title: "Time" },
+        vAxis: { title: "Rating" }
+      }
     }
   }
 
@@ -25,20 +30,21 @@ class GraphContainer extends Component {
   render() {
 
     return (
-      <div className={'google-chart'}>
-        <div>
-          <h2>Track your progress over time!</h2>
-          <Chart
-            chartType="LineChart"
-            data={this.state.data}
-            options={{}}
-            graph_id="LineChart"
-            width="100%"
-            height="400px"
-            legend_toggle
-          />
+      <div className="graph">
+        <div className={'google-chart'}>
+          <div>
+            <Chart
+              chartType="LineChart"
+              data={this.state.data}
+              options={this.state.options}
+              graph_id="LineChart"
+              width="100%"
+              height="400px"
+              legend_toggle
+            />
+          </div>
         </div>
-      </div>
+    </div>
     );
   }
 }

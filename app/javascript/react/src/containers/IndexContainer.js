@@ -6,7 +6,6 @@ import FrontPageComponent from '../components/FrontPageComponent'
 import GraphContainer from './GraphContainer'
 import EntriesContainer from './EntriesContainer'
 import EntryShowContainer from './EntryShowContainer'
-import SubmitTile from '../components/SubmitTile'
 
 class IndexContainer extends Component {
  constructor(props) {
@@ -16,6 +15,7 @@ class IndexContainer extends Component {
      entry_id: '',
 
      latestEntry: {},
+     latestEntryId: '',
      latestJournalEntry: '',
      latestGoals: [],
      latestUserEmotions: [],
@@ -44,9 +44,14 @@ class IndexContainer extends Component {
      entryPayLoad: {},
 
      journalClass: 'hidden',
+     journalTabClass: 'content',
+
      goalsClass: '',
+     goalsTabClass: 'content active',
+
      userEmotionsClass: 'hidden',
-     submitClass: 'hidden',
+     userEmotionsTabClass: 'content',
+
      graphClass: ''
    }
 
@@ -71,11 +76,11 @@ class IndexContainer extends Component {
 
    this.createEntriesPayLoad = this.createEntriesPayLoad.bind(this)
 
-   this.showJournal = this.showJournal.bind(this)
-   this.showGoals = this.showGoals.bind(this)
-   this.showEmotions = this.showEmotions.bind(this)
+   this.tabClickGoalsIndex = this.tabClickGoalsIndex.bind(this)
+   this.tabClickJournalIndex = this.tabClickJournalIndex.bind(this)
+   this.tabClickUserEmotionsIndex = this.tabClickUserEmotionsIndex.bind(this)
+
    this.hideGraph = this.hideGraph.bind(this)
-   this.showSubmit = this.showSubmit.bind(this)
 
  }
 
@@ -97,7 +102,8 @@ class IndexContainer extends Component {
      let lastEntry = body.entries[body.entries.length - 1]
      this.setState({
        latestEntry: lastEntry,
-       latestJournalEntry: lastEntry.journals[0].journal_entry.slice(0, 20),
+       latestEntryId: lastEntry.id,
+       latestJournalEntry: lastEntry.journals[0].journal_entry.slice(0, 140),
        latestGoals: lastEntry.goals[0].goal_item,
        latestUserEmotions: lastEntry.user_emotions[0].rating
       })
@@ -218,20 +224,55 @@ class IndexContainer extends Component {
    })
  }
 
- showJournal() {
-   this.setState({ journalClass: '', goalsClass: 'hidden', userEmotionsClass: 'hidden', submitClass: 'hidden' })
+ tabClickGoalsIndex() {
+   this.setState({
+     journalTabClass: "content",
+     journalClass: "hidden",
+
+     goalsTabClass: "content active",
+     goalsClass: "",
+
+     userEmotionsTabClass: "content",
+     userEmotionsClass: "hidden"
+   })
  }
 
- showGoals() {
-  this.setState({ journalClass: 'hidden', goalsClass: '', userEmotionsClass: 'hidden', submitClass: 'hidden' })
+ tabClickJournalIndex() {
+   this.setState({
+     journalTabClass: "content active",
+     journalClass: "",
+
+     goalsTabClass: "content",
+     goalsClass: "hidden",
+
+     userEmotionsTabClass: "content",
+     userEmotionsClass: "hidden"
+   })
  }
 
- showEmotions() {
-   this.setState({ journalClass: 'hidden', goalsClass: 'hidden', userEmotionsClass: '', submitClass: 'hidden' })
+ tabClickUserEmotionsIndex() {
+   this.setState({
+     journalTabClass: "content",
+     journalClass: "hidden",
+
+     goalsTabClass: "content",
+     goalsClass: "hidden",
+
+     userEmotionsTabClass: "content active",
+     userEmotionsClass: ""
+   })
  }
 
- showSubmit() {
-   this.setState({ journalClass: 'hidden', goalsClass: 'hidden', userEmotionsClass: 'hidden', submitClass: '' })
+ tabClickSubmitIndex() {
+   this.setState({  journalTabClass: "content",
+    journalClass: "hidden",
+
+    goalsTabClass: "content",
+    goalsClass: "hidden",
+
+    userEmotionsTabClass: "content",
+    userEmotionsClass: "hidden"
+  })
  }
 
  hideGraph() {
@@ -244,6 +285,10 @@ class IndexContainer extends Component {
 
    let latestEntryOnPage = () => { this.createLatestEntry() }
 
+   let handleTabClickGoalsIndex = () => { this.tabClickGoalsIndex() }
+   let handleTabClickJournalIndex = () => { this.tabClickJournalIndex() }
+   let handleTabClickUserEmotionsIndex = () => { this.tabClickUserEmotionsIndex() }
+
    let journalContainer;
    let userEmotionContainer;
    let goalsContainer;
@@ -251,8 +296,7 @@ class IndexContainer extends Component {
    let graphContainer;
    let entriesContainer;
    let entryShowContainer;
-   let entryEditContainer;
-   let submitTile;
+   let hiddenId;
 
    if (this.state.currentUser) {
      journalContainer = <JournalContainer
@@ -296,12 +340,6 @@ class IndexContainer extends Component {
        handleGoal5Change={this.handleGoal5Change}
      />
 
-     submitTile = <SubmitTile
-       currentUser={this.state.currentUser}
-       submitButton={handleEntryClick}
-       submitClass={this.state.submitClass}
-     />
-
      graphContainer = <GraphContainer
        currentUser={this.state.currentUser}
        graphClass={this.state.graphClass}
@@ -316,48 +354,48 @@ class IndexContainer extends Component {
        currentUser={this.state.currentUser}
      />
 
-     entryEditContainer = <EntryEditContainer
-       currentUser={this.state.currentUser}
-     />
-
     } else {
       frontPageComponent = <FrontPageComponent />
+      hiddenId = "hidden"
     }
-    let buttons = [["Set Daily Goals", this.showGoals], ["Journal", this.showJournal], ["Rate Your Emotions", this.showEmotions], ["Submit Entry", this.showSubmit]]
-    let sectionButtons = buttons.map(button => {
-      return(
-        <div key={button[0]}>
-          <div className="row">
-            <button type="button" className="large-12 columns side-buttons" onClick={button[1]}>{button[0]}</button>
-          </div>
-          <br />
-        </div>
-      )
-    })
+
     return(
       <div>
         <div className="row">
           <br />
-         <div className="small-2 large-2 columns side-buttons">
-           {sectionButtons}
-         </div>
-         <div className="large-7 small-7 columns">
+         <div className="large-9 small-9 columns">
+           <ul id={`${hiddenId}`} className="tabs" data-tab>
+             <li className="tab-title" onClick={handleTabClickGoalsIndex}><a className="tab-item" href="#panel1">Set Goals</a></li>
+             <li className="tab-title" onClick={handleTabClickJournalIndex}><a className="tab-item" href="#panel2">Journal</a></li>
+             <li className="tab-title" onClick={handleTabClickUserEmotionsIndex}><a className="tab-item" href="#panel3">Rate Your Emotions</a></li>
+             <li id="submit-entry-button" className="tab-title" onClick={handleEntryClick}><a href="#panel4">Submit Entry</a></li>
+           </ul>
            {frontPageComponent}
            {userEmotionContainer}
            {goalsContainer}
            {journalContainer}
-           {submitTile}
           </div>
-          <div className="large-2 small-2 columns">
-            <h3>Latest Entry</h3>
-              {this.state.latestJournalEntry}
-              {this.state.latestGoals}
-            <h3>Recent Articles</h3>
-            <div className="article-link"><a href={this.state.randomArticle1[0]}>{this.state.randomArticle1[1]}</a></div>
-            <div className="article-link"><a href={this.state.randomArticle2[0]}>{this.state.randomArticle2[1]}</a></div>
-            <div className="article-link"><a href={this.state.randomArticle3[0]}>{this.state.randomArticle3[1]}</a></div>
+        </div>
+        <div className="row">
+          <div className="large- small- columns">
+            <h3 className="latest-entry-title">Latest Entry</h3>
+            <div className="latest-entry"><a href={`/entries/${this.state.latestEntryId}`}>
+              <h5 className="latest-entry-description">Click this box to see your last entry!</h5>
+              <div className="latest-journal-entry">Journal: {this.state.latestJournalEntry}...</div><br />
+              <p className="dashes">- - - - - - - - -</p>
+              <div className="latest-goals-entry">Latest Goal: {this.state.latestGoals}</div>
+            </a>
+            </div>
           </div>
-       </div>
+        </div>
+          <div className="row">
+            <div className="large-8 columns">
+              <h3 className="recent-articles-title">Recent Articles</h3>
+              <div className="article-link"><a href={this.state.randomArticle1[0]}>{this.state.randomArticle1[1]}</a></div>
+              <div className="article-link"><a href={this.state.randomArticle2[0]}>{this.state.randomArticle2[1]}</a></div>
+              <div className="article-link"><a href={this.state.randomArticle3[0]}>{this.state.randomArticle3[1]}</a></div>
+            </div>
+          </div>
        {graphContainer}
      </div>
     )

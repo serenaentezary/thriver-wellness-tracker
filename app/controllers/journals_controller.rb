@@ -1,23 +1,6 @@
 class JournalsController < ApplicationController
   def index
     @user = current_user
-    @journals = @user.journals.order(created_at: :desc)
-  end
-
-  def show
-    @user = current_user
-    @journal = Journal.find(params[:id])
-  end
-
-  def edit
-
-  end
-
-  def updated
-
-  end
-
-  def destroy
-
+    @journal_entries = @user.entries.order(created_at: :desc).map(&:journals)
   end
 end

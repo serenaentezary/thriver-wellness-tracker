@@ -7,16 +7,21 @@
   display: flex;
   margin: 2%;
   width: 40%;
-  border: 2px solid black;
-  border-width: medium;
-  border-radius: 20px;
   height: 5%;
-  background-color: white;
-  opacity: 0.8;
-  filter: alpha(opacity=80);
+  padding: 3%;
 }
 
 .goals-list {
   display: flex;
-  border-color: #4D5176;
+  border-radius: 20px;
+  background-color: white;
+  text-align: center;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  flex-direction: column;
+}
+
+.goal-item {
+  display: flex;
+  margin: 2%
 }

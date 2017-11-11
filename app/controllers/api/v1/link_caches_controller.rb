@@ -7,8 +7,4 @@ class Api::V1::LinkCachesController < ApplicationController
     links = LinkCache.find(random_ids)
     render json: links
   end
-
-  def index
-    LinkCache.all
-  end
-end
+end 

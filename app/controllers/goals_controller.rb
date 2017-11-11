@@ -1,6 +1,6 @@
 class GoalsController < ApplicationController
   def index
     @user = current_user
-    @goals = @user.goals.order(created_at: :desc)
+    @goal_entries = @user.entries.order(created_at: :desc).map(&:goals)
   end
 end

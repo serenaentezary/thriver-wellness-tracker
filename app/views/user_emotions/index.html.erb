@@ -1,7 +1,47 @@
-<div class="user-emotions-data">
-  <ul>
-    <% @user_emotions.each do |user_emotion| %>
-      <li><%= user_emotion.rating %><br />Created At: <%= user_emotion.created_at.strftime('%a %d %b %Y') %></li>
+<h1 class="emotions-title">Previous Emotion Ratings</h1>
+
+<div class="row emotions-spacing">
+  <div id="happiness" class="large-4 columns">
+    <h4>Happiness</h4>
+    <% @happiness.each do |happiness_entry| %>
+      <p>Rating: <%=happiness_entry.rating %>, Date: <%= happiness_entry.created_at.strftime('%a %d %m %Y') %></p>
     <% end %>
-  </ul>
+  </div>
+
+  <div id="sadness" class="large-4 columns">
+    <h4>Sadness</h4>
+    <% @sadness.each do |sadness_entry| %>
+      <p>Rating: <%= sadness_entry.rating %>, Date: <%= sadness_entry.created_at.strftime('%a %d %m %Y') %></p>
+    <% end %>
+  </div>
+
+  <div id="excitement" class="large-4 columns">
+    <h4>Excitement</h4>
+    <% @sadness.each do |excitement_entry| %>
+      <p>Rating: <%= excitement_entry.rating %>, Date: <%= excitement_entry.created_at.strftime('%a %d %m %Y') %></p>
+    <% end %>
+  </div>
+</div>
+<br />
+<div class="row emotions-spacing">
+  <div id="anger" class="large-4 columns">
+    <h4>Anger</h4>
+    <% @sadness.each do |anger_entry| %>
+      <p>Rating: <%= anger_entry.rating %>, Date: <%= anger_entry.created_at.strftime('%a %d %m %Y') %></p>
+    <% end %>
+  </div>
+
+  <div id="anxiety" class="large-4 columns">
+    <h4>Anxiety</h4>
+    <% @sadness.each do |anxiety_entry| %>
+      <p>Rating: <%= anxiety_entry.rating %>, Date: <%= anxiety_entry.created_at.strftime('%a %d %m %Y') %></p>
+    <% end %>
+  </div>
+
+  <div id="peacefulness" class="large-4 columns">
+    <h4>Peacefulness</h4>
+    <% @sadness.each do |peacefulness_entry| %>
+      <p>Rating: <%= peacefulness_entry.rating %>, Date: <%= peacefulness_entry.created_at.strftime('%a %d %m %Y') %></p>
+    <% end %>
+  </div>
 </div>

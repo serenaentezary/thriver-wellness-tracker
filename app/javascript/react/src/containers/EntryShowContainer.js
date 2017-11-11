@@ -5,6 +5,7 @@ class EntryShowContainer extends Component {
    super(props);
    this.state = {
      entry: [],
+     userId: '',
 
      journal: '',
 
@@ -14,22 +15,24 @@ class EntryShowContainer extends Component {
      anger: '',
      anxiety: '',
      peacefulness: '',
-     updatedEmotionsPayLoad: [],
+     updatedEmotionsPayLoad: {},
 
      goal1: '',
      goal2: '',
      goal3: '',
      goal4: '',
      goal5: '',
+     updatedGoalsPayLoad: {},
 
      goalsClass: '',
      journalClass: 'hidden',
      userEmotionsClass: 'hidden',
 
+     updatedEntryPayLoad: {},
+
      goalsTabClass: "content active",
      journalTabClass: "content",
-     userEmotionsTabClass: "content",
-     submitTabClass: "content"
+     userEmotionsTabClass: "content"
 
    }
    this.handleEntryUpdateSubmit = this.handleEntryUpdateSubmit.bind(this)
@@ -42,17 +45,21 @@ class EntryShowContainer extends Component {
    this.handleSliderUpdatedAnger = this.handleSliderUpdatedAnger.bind(this)
    this.handleSliderUpdatedAnxiety = this.handleSliderUpdatedAnxiety.bind(this)
    this.handleSliderUpdatedPeacefulness = this.handleSliderUpdatedPeacefulness.bind(this)
+   this.createUpdatedEmotionsPayLoad = this.createUpdatedEmotionsPayLoad.bind(this)
 
    this.handleUpdateGoal1Change = this.handleUpdateGoal1Change.bind(this)
    this.handleUpdateGoal2Change = this.handleUpdateGoal2Change.bind(this)
    this.handleUpdateGoal3Change = this.handleUpdateGoal3Change.bind(this)
    this.handleUpdateGoal4Change = this.handleUpdateGoal4Change.bind(this)
    this.handleUpdateGoal5Change = this.handleUpdateGoal5Change.bind(this)
+   this.createUpdatedGoalsPayLoad = this.createUpdatedGoalsPayLoad.bind(this)
+
+   this.createUpdatedEntryPayLoad = this.createUpdatedEntryPayLoad.bind(this)
 
    this.tabClickGoals = this.tabClickGoals.bind(this)
    this.tabClickJournal = this.tabClickJournal.bind(this)
    this.tabClickUserEmotions = this.tabClickUserEmotions.bind(this)
-   this.tabClickSubmit = this.tabClickSubmit.bind(this)
+
  }
 
  componentDidMount() {
@@ -65,6 +72,7 @@ class EntryShowContainer extends Component {
    .then(body => {
      this.setState({
        entry: body.entry,
+       userId: body.entry.user_id,
 
        journal: body.entry.journals[0].journal_entry,
 
@@ -112,7 +120,7 @@ class EntryShowContainer extends Component {
    this.setState({ peacefulness: event.target.value })
  }
 
- createEmotionsPayLoad(data) {
+ createUpdatedEmotionsPayLoad(data) {
    this.state.updatedEmotionsPayLoad = {
      happiness: this.state.happiness,
      sadness: this.state.sadness,
@@ -143,15 +151,42 @@ class EntryShowContainer extends Component {
    this.setState({ goal5: event.target.value })
  }
 
+ createUpdatedGoalsPayLoad() {
+   this.state.updatedGoalsPayLoad = {
+     goal1: this.state.goal1,
+     goal2: this.state.goal2,
+     goal3: this.state.goal3,
+     goal4: this.state.goal4,
+     goal: this.state.goal5
+   }
+ }
+
+ createUpdatedEntryPayLoad() {
+   this.createUpdatedEmotionsPayLoad()
+   this.createUpdatedGoalsPayLoad()
+
+   this.state.updatedEntryPayLoad = {
+     userId: this.state.userId,
+
+     updatedGoalsPayLoad: this.state.updatedGoalsPayLoad,
+
+     journal: this.state.journal,
+
+     updatedEmotionsPayLoad: this.state.updatedEmotionsPayLoad
+   }
+ }
+
  handleEntryUpdateSubmit() {
    event.preventDefault();
-   this.createEntriesPayLoad()
-   fetch(`/api/v1/users/${this.state.currentUser.id}/entries`, {
+   this.createUpdatedEntryPayLoad()
+   fetch(`/api/v1/users/${this.state.userId}/entries/${this.state.entry.id}`, {
      method: 'PATCH',
      credentials: 'same-origin',
      headers: { 'Content-Type': 'application/json' },
-     body: JSON.stringify(this.state.entryPayLoad)
+     body: JSON.stringify(this.state.updatedEntryPayLoad)
    })
+   .then(response => { return response.json() })
+   .then(data => { console.log(data)} )
  }
 
  tabClickGoals() {
@@ -163,10 +198,7 @@ class EntryShowContainer extends Component {
      goalsClass: "",
 
      userEmotionsTabClass: "content",
-     userEmotionsClass: "hidden",
-
-     submitTabClass: "content",
-     submitClass: "hidden"
+     userEmotionsClass: "hidden"
    })
  }
 
@@ -179,10 +211,7 @@ class EntryShowContainer extends Component {
      goalsClass: "hidden",
 
      userEmotionsTabClass: "content",
-     userEmotionsClass: "hidden",
-
-     submitTabClass: "content",
-     submitClass: "hidden"
+     userEmotionsClass: "hidden"
    })
  }
 
@@ -195,26 +224,8 @@ class EntryShowContainer extends Component {
      goalsClass: "hidden",
 
      userEmotionsTabClass: "content active",
-     userEmotionsClass: "",
-
-     submitTabClass: "content",
-     submitClass: "hidden"
+     userEmotionsClass: ""
    })
- }
-
- tabClickSubmit() {
-   this.setState({  journalTabClass: "content",
-    journalClass: "hidden",
-
-    goalsTabClass: "content",
-    goalsClass: "hidden",
-
-    userEmotionsTabClass: "content",
-    userEmotionsClass: "hidden",
-
-    submitTabClass: "content active",
-    submitClass: ""
-  })
  }
 
  render() {
@@ -222,7 +233,6 @@ class EntryShowContainer extends Component {
    let handleTabClickGoals = () => { this.tabClickGoals() }
    let handleTabClickJournal = () => { this.tabClickJournal() }
    let handleTabClickUserEmotions = () => { this.tabClickUserEmotions() }
-   let handleTabClickSubmit = () => { this.tabClickSubmit() }
 
    let arrayOfUserEmotionRatingsAndMethods = [
      ["Happy", this.state.happiness, this.handleSliderUpdatedHappiness],
@@ -270,43 +280,48 @@ class EntryShowContainer extends Component {
 
    return(
      <div>
-       <ul className="tabs" data-tab>
-         <li className="tab-title" onClick={handleTabClickGoals}><a href="#panel1">Edit Goals</a></li>
-         <li className="tab-title" onClick={handleTabClickJournal}><a href="#panel2">Edit Journal</a></li>
-         <li className="tab-title" onClick={handleTabClickUserEmotions}><a href="#panel3">Edit Emotion Ratings</a></li>
-         <li className="tab-title" onClick={handleTabClickSubmit}><a href="#panel4">Submit Updated Entry</a></li>
-       </ul>
-       <div className="tabs-content">
-         <div className={this.state.goalsTabClass} id="panel1">
-           <div className={this.state.goalsClass}>
-             <div className="row">
-               <label>Write up to five goals that you want to set for yourself today. Try to write goals that are reachable within the next 8 - 12 hours. You can cross them off when you're done!<br />
-                 {updatedGoals}
-               </label>
+       <div className="row">
+         <br />
+         <div className="large-11 small-11 columns">
+           <ul className="tabs" data-tab>
+             <li className="tab-title" onClick={handleTabClickGoals}><a className="tab-panel-1" href="#panel1">Edit Goals</a></li>
+             <li className="tab-title" onClick={handleTabClickJournal}><a className="tab-panel-2" href="#panel2">Edit Journal</a></li>
+             <li className="tab-title" onClick={handleTabClickUserEmotions}><a className="tab-panel-3" href="#panel3">Edit Emotion Ratings</a></li>
+             <li id="submit-button-entry" className="tab-title" onClick={handleEntryUpdateClick}><a href="#panel4">Submit Updated Entry</a></li>
+           </ul>
+           <div className={this.state.goalsTabClass}>
+             <div className={this.state.goalsClass}>
+               <div className="goals-wrapper">
+                 <div className="row">
+                   <div className="large-11 columns">
+                     <label>Edit your five goals that you set for yourself today. Try to write goals that are reachable within the next 8 - 12 hours. You can cross them off later when you're done!<br />
+                     </label>
+                     {updatedGoals}
+                   </div>
+                 </div>
+               </div>
              </div>
            </div>
-         </div>
-         <div className={this.state.journalTabClass} id="panel2">
-           <div className={this.state.journalClass}>
-             <div className="row journal-prompt">
-               <label>Feel free to write about your day! What were the highs? The lows? What brought you joy today? If you had a rough day, what can you do to make it better?<br />
-                 <textarea rows="20" cols="40"
-                   id="journal"
-                   name="journal"
-                   onChange={this.handleUpdatedJournalChange}
-                   className="large-12 columns"
-                   value={this.state.journal}
-                 >
-                 </textarea>
-               </label>
+           <div className={this.state.journalTabClass}>
+             <div className={this.state.journalClass}>
+               <div className="row journal-prompt">
+                 <label>Feel free to edit how your day was! What were the highs? The lows? What brought you joy today? If you had a rough day, what can you do to make it better?<br />
+                   <textarea rows="20" cols="40"
+                     id="journal"
+                     name="journal"
+                     onChange={this.handleUpdatedJournalChange}
+                     className="large-12 columns"
+                     value={this.state.journal}
+                   >
+                   </textarea>
+                 </label>
+               </div>
              </div>
            </div>
-         </div>
-         <div className={this.state.userEmotionsTabClass} id="panel3">
-           <div>
+           <div className={this.state.userEmotionsTabClass}>
              <div className={this.state.userEmotionsClass}>
-               <h5>How were you actually feeling at the previous time when you submitted the entry? Please feel free to edit and rate your emotions on a scale of 0 - 100.</h5>
-               <div>
+               <div className="sliders-wrapper">
+                 <h5>How were you actually feeling at the previous time when you submitted the entry? Please feel free to edit and rate your emotions on a scale of 0 - 100.</h5>
                  <div id="sliders" className="row">
                    <div className="large-12 columns">
                      <div className="wrapping">
@@ -316,11 +331,6 @@ class EntryShowContainer extends Component {
                  </div>
                </div>
              </div>
-           </div>
-         </div>
-         <div className={this.state.submitTabClass} id="panel4">
-           <div className={this.state.submitClass}>
-             <button className="submit-button" onClick={handleEntryUpdateClick}>Submit Entry!</button>
            </div>
          </div>
        </div>

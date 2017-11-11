@@ -1,4 +1,5 @@
 class Api::V1::EntriesController < ApplicationController
+  protect_from_forgery unless: -> { request.format.json? }
   skip_before_action :verify_authenticity_token
 
   def index
@@ -61,10 +62,10 @@ class Api::V1::EntriesController < ApplicationController
     user = current_user
     entry = user.entries.find(params[:id])
     new_data = JSON.parse(request.body.read)
-    journal_entry = new_data["journalEntry"]
+    journal_entry = new_data["journal"]
     entry.journals[0].update(journal_entry: journal_entry)
 
-    user_emotions = new_data["emotionsPayLoad"]
+    user_emotions = new_data["updatedEmotionsPayLoad"]
     user_emotions.each do |emotion_name, rating|
       emotion = Emotion.find_by_feeling(emotion_name)
       user_emotion = entry.user_emotions.where(emotion: emotion)[0]
@@ -73,11 +74,12 @@ class Api::V1::EntriesController < ApplicationController
       )
     end
 
-    goals = new_data["goalsPayLoad"]
-    goals.each_with_index do |item_number, goal, index|
-      entry.goals[index].update(goal_item: goal)
+    goals = new_data["updatedGoalsPayLoad"]
+    goals.each_with_index do |goal_array, index|
+      entry.goals[index].update(goal_item: goal_array.second)
     end
 
+    render json: entry
   end
 
   def destroy

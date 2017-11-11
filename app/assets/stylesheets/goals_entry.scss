@@ -1,1 +1,26 @@
+.goals-entry {
+  display: flex;
+  background-color: white;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  border-radius: 20px;
+  text-align: center;
+  padding: 3%;
+}
 
+#goal-tile-component-container-2 {
+  display: flex;
+  justify-content: center;
+}
+
+#goal-tile {
+  padding: 3%;
+}
+
+.past-goals-title {
+  margin-left: 10%;
+}
+
+.past-goals-subtitle {
+  margin-left: 10%;
+}

@@ -1,13 +1,17 @@
-.journals-index-container {
+.emotions-index-container {
   display: flex;
   justify-content: center;
 }
 
-.journals-list {
+.emotions-index {
   display: flex;
+  margin: 2%;
+  width: 40%;
+  height: 5%;
+  padding: 3%;
 }
 
-div.journal-entry-div {
+.emotions-list {
   display: flex;
   border-radius: 20px;
   background-color: white;
@@ -15,9 +19,9 @@ div.journal-entry-div {
   opacity: 0.8;
   filter: alpha(opacity=80);
   flex-direction: column;
-  margin: 2%;
 }
 
-.past-journals-title {
-  margin-left: 10%;
+.emotions-item {
+  display: flex;
+  margin: 2%
 }

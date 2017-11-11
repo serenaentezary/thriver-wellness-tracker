@@ -4,7 +4,7 @@ const JournalComponent = props => {
   return(
     <div className={props.journalClass}>
       <div className="row journal-prompt">
-        <label>Feel free to write about your day! What were the highs? The lows? What brought you joy today? If you had a rough day, what can you do to make it better?<br />
+        <label>Feel free to write about your day! What were the highs? The lows? What brought you joy today? What are you grateful for? If you had a rough day, what can you do to make it better?<br />
           <textarea rows="20" cols="40"
             id="journal"
             name="journal"

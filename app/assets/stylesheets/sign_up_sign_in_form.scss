@@ -1,0 +1,23 @@
+.signup {
+  width: 20%;
+}
+
+.actions input {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.3rem;
+  color: white;
+  background-color: #4D5176;
+  width: 6rem;
+  height: 3rem;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+.actions input:hover {
+  opacity: 1.0;
+  filter: alpha(opacity=100);
+}
+
+#server-side h2 {
+  padding-left: 7%;
+}

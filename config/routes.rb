@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :goals, only: [:index, :show, :edit, :update, :destroy]
   resources :journals, only: [:index, :show, :edit, :update, :destroy]
   resources :user_emotions, only: [:index, :show, :edit, :update, :destroy]
-
+  resources :link_caches, only: [:index]
+  
   get '*path', to: 'static_pages#index'
 end
