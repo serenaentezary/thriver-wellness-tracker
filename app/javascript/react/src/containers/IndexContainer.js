@@ -389,7 +389,7 @@ class IndexContainer extends Component {
           </div>
         </div>
           <div className="row">
-            <div className="large-8 columns">
+            <div className="large-8 small-8 columns">
               <h3 className="recent-articles-title">Recent Articles</h3>
               <div className="article-link"><a href={this.state.randomArticle1[0]}>{this.state.randomArticle1[1]}</a></div>
               <div className="article-link"><a href={this.state.randomArticle2[0]}>{this.state.randomArticle2[1]}</a></div>
