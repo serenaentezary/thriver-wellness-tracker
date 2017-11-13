@@ -99,12 +99,12 @@ class IndexContainer extends Component {
    })
    .then(response => response.json())
    .then(body => {
-     let lastEntry = body.entries[body.entries.length - 1]
+     let lastEntry = body.entries[0]
      this.setState({
        latestEntry: lastEntry,
        latestEntryId: lastEntry.id,
        latestJournalEntry: lastEntry.journals[0].journal_entry.slice(0, 140),
-       latestGoals: lastEntry.goals[0].goal_item,
+       latestGoals: lastEntry.goals[4].goal_item,
        latestUserEmotions: lastEntry.user_emotions[0].rating
       })
    })
@@ -377,7 +377,7 @@ class IndexContainer extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="large- small- columns">
+          <div className="large-5 small-5 columns">
             <h3 className="latest-entry-title">Latest Entry</h3>
             <div className="latest-entry"><a href={`/entries/${this.state.latestEntryId}`}>
               <h5 className="latest-entry-description">Click this box to see your last entry!</h5>
@@ -389,7 +389,7 @@ class IndexContainer extends Component {
           </div>
         </div>
           <div className="row">
-            <div className="large-8 columns">
+            <div className="large-8 small-8 columns">
               <h3 className="recent-articles-title">Recent Articles</h3>
               <div className="article-link"><a href={this.state.randomArticle1[0]}>{this.state.randomArticle1[1]}</a></div>
               <div className="article-link"><a href={this.state.randomArticle2[0]}>{this.state.randomArticle2[1]}</a></div>

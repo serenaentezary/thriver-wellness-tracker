@@ -2,13 +2,25 @@
 <div class="goals-index-container">
   <div class="goals-index">
     <div class="goals-outer-list">
-      <% @goal_entries.each_with_index do |goal_entry, index| %>
-        <ul class="goals-list">
-          <%= goal_entry[index].created_at.strftime('%a %d %m %Y') %>
-          <% goal_entry.each do |goal| %>
-            <li class="goal-item"><%= goal.goal_item %></li>
+      <% @goal_entries.each do |entry, goals| %>
+        <div class="goals-list">
+          <h3><%= entry.created_at.strftime('%a, %m/%d/%Y') %></h3>
+          <%= form_tag(completed_goals_entry_path(entry)) do %>
+            <% goals.each do |goal| %>
+              <% if goal.goal_item.present? %>
+                <div class="row goal-item">
+                  <div class="small-1 large-1 columns">
+                    <%= check_box_tag(goal.id, true, goal.completed, class: "checkbox") %>
+                  </div>
+                  <div class="small-11 large-11 columns">
+                    <%= label_tag(goal.id, goal.goal_item) %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+            <%= submit_tag "Update Goals", class: "button" %>
           <% end %>
-        </ul>
+        </div>
       <% end %>
     </div>
   </div>

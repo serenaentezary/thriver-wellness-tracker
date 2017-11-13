@@ -25,7 +25,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :entries, only: [:index, :show, :edit, :update, :destroy]
+  resources :entries, only: [:index, :show, :edit, :update, :destroy] do
+    member do
+      post :completed_goals
+    end
+  end
   resources :goals, only: [:index, :show, :edit, :update, :destroy]
   resources :journals, only: [:index, :show, :edit, :update, :destroy]
   resources :user_emotions, only: [:index, :show, :edit, :update, :destroy]
