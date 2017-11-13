@@ -377,7 +377,7 @@ class IndexContainer extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="large- small- columns">
+          <div className="large-5 small-5 columns">
             <h3 className="latest-entry-title">Latest Entry</h3>
             <div className="latest-entry"><a href={`/entries/${this.state.latestEntryId}`}>
               <h5 className="latest-entry-description">Click this box to see your last entry!</h5>

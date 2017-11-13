@@ -23,9 +23,21 @@
 
 .goal-item {
   display: flex;
-  margin: 2%;
+  margin-left: 0px;
+  margin-top: 0px;
 }
 
 .past-goals-title {
   margin-left: 10%;
+}
+
+li input.goal-checkbox {
+  margin-left: 1%;
+  margin-top: 1%;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+input.button {
+
 }

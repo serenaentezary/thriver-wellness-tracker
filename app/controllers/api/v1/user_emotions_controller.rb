@@ -15,7 +15,7 @@ class Api::V1::UserEmotionsController < ApplicationController
       ["Time", "Happiness", "Sadness", "Excitement", "Anger", "Anxiety", "Peacefulness"]
     ]
     entries.each do |entry|
-      time = entry.created_at.strftime('%a %d %b %Y')
+      time = entry.created_at.strftime('%a, %m/%d/%Y')
       happiness = entry.find_rating('happiness').to_i
       sadness = entry.find_rating('sadness').to_i
       excitement = entry.find_rating('excitement').to_i
@@ -31,6 +31,6 @@ class Api::V1::UserEmotionsController < ApplicationController
   end
 
   def destroy
-    
+
   end
 end
