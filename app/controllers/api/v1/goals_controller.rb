@@ -5,12 +5,8 @@ class Api::V1::GoalsController < ApplicationController
 
   def index
     user = current_user
-    goals = user.goals
+    goals = user.entries.order(created_at: :desc).map(&:goals)
     render json: goals
-  end
-
-  def update
-
   end
 
   def destroy

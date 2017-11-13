@@ -5,14 +5,14 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, param: :id, only: [:index, :show] do
-        resources :user_emotions, except: [:new] do
+        resources :user_emotions, only: [:index, :destroy] do
           collection do
             get :graph_data
           end
         end
         resources :entries, except: [:new]
-        resources :journals, except: [:new]
-        resources :goals, except: [:new]
+        resources :journals, only: [:index, :destroy]
+        resources :goals, only: [:index, :destroy]
       end
       resources :link_caches, only: [:index] do
         collection do
@@ -30,6 +30,6 @@ Rails.application.routes.draw do
   resources :journals, only: [:index, :show, :edit, :update, :destroy]
   resources :user_emotions, only: [:index, :show, :edit, :update, :destroy]
   resources :link_caches, only: [:index]
-  
+
   get '*path', to: 'static_pages#index'
 end

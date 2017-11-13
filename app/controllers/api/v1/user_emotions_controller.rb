@@ -8,14 +8,6 @@ class Api::V1::UserEmotionsController < ApplicationController
     render json: user_emotions
   end
 
-  def show
-
-  end
-
-  def create
-
-  end
-
   def graph_data
     user = current_user
     entries = user.entries
@@ -38,14 +30,7 @@ class Api::V1::UserEmotionsController < ApplicationController
     render json: data
   end
 
-  def edit
-
-  end
-
-  def update
-
-  end
-
   def destroy
+    
   end
 end

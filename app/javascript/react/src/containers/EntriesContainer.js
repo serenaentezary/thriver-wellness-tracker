@@ -32,7 +32,6 @@ class EntriesContainer extends Component {
              <a className="link-to-entry" href={`/entries/${entry.id}`}>See or Edit Entry</a>
              <p key={entry.id}>{entry.created_at}</p>
 
-             <p className="journals-entries-index" key={entry.journals[0].id}>Journal: <br /><br />{entry.journals[0].journal_entry}</p>
              <ul className="goals-entries-index">
                <p>Goals:</p>
                <li key={entry.goals[0].goal_item}>{entry.goals[0].goal_item}</li>
@@ -41,6 +40,7 @@ class EntriesContainer extends Component {
                <li key={entry.goals[3].goal_item}>{entry.goals[3].goal_item}</li>
                <li key={entry.goals[4].goal_item}>{entry.goals[4].goal_item}</li>
              </ul>
+             <p className="journals-entries-index" key={entry.journals[0].id}>Journal: <br /><br />{entry.journals[0].journal_entry}</p>
              <ul>
                <p>Emotion Ratings:</p>
                <li key={entry.user_emotions[0].id}>{entry.user_emotions[0].feeling}, {entry.user_emotions[0].rating}</li>

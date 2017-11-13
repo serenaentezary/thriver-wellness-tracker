@@ -6,6 +6,7 @@ import EntriesContainer from './EntriesContainer'
 import EntryShowContainer from './EntryShowContainer'
 import JournalsIndexContainer from './JournalsIndexContainer'
 
+
 const App = props => {
   return(
     <BrowserRouter>
@@ -14,6 +15,7 @@ const App = props => {
         <Route exact path='/entries' component={EntriesContainer}/>
         <Route exact path='/entries/:id' component={EntryShowContainer}/>
         <Route exact path='/journals' component={JournalsIndexContainer}/>
+        
       </div>
     </BrowserRouter>
   )
