@@ -1,13 +1,14 @@
 namespace :populator do
   task :fetch => :environment do
     require 'open-uri'
-    url = 'https://store.samhsa.gov/api/r/xml/productlist?start=1&pagelength=10&terms=Alcohol!Alcohol%20Abuse&sortBy=relevance&ascending=false'
+    url = 'http://content.samhsa.gov/ext/api/items?q-text=Treatment&pagelength=100'
     puts LinkCache.count
     LinkCache.delete_all
     doc = Nokogiri::HTML(open(url, :redirect => true))
-    doc.xpath("//product").each do |product|
-      link = product.xpath("text()").last
-      LinkCache.create(link: link)
+    doc.xpath("//pub").each do |match|
+      link = match.xpath("text()").last.text
+      title = match.css("title").text
+      LinkCache.create(link: link, title: title)
     end
     puts LinkCache.count
   end

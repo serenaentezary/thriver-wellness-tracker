@@ -12,34 +12,49 @@
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
   </head>
-
-  <body class="container">
-    <div>
-      <header class="row">
-        <h1 class="thriver"><%= link_to "Thriver", root_path %></h1><span id="subheader" class="large-2 columns"><%= link_to "A Wellness Tracker", root_path %></span>
-      </header>
-    </div>
-    <div class="sign-in">
-      <nav>
-
-        <%= link_to "Previous Journal Entries", api_v1_user_journals_path(user_id: 1) %>
-
-        <% if user_signed_in? %>
-          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-        <% else %>
-          <%= link_to "Log In", new_user_session_path %> /
-          <%= link_to "Sign Up", new_user_registration_path %>
-        <% end %>
-      </nav>
-    </div>
-    <div class="flash">
-      <%= flash[:notice] %>
-      <%= flash[:alert] %>
-    </div>
-    <div id="app">
-    </div>
-    <div id="server-side">
-      <%= yield %>
-    </div>
-  </body>
+  <div id="background-image">
+    <body>
+      <div>
+        <div class="thriver-header">
+          <header class="row">
+            <h1 class="thriver"><%= link_to "Thriver", root_path %></h1><br /><span class="subheader">A Wellness Tracker</span>
+          </header>
+        </div>
+      </div>
+      <div>
+        <nav class="top-bar" data-topbar role "navigation">
+          <section class="top-bar-section">
+             <ul class="right">
+               <% if user_signed_in? %>
+                 <li class="articles-and-resources-link-nav"><%= link_to "Articles & Resources", link_caches_path %></li>
+                 <li class="has-dropdown">
+                   <a href="#">See How Things Changed</a>
+                   <ul class="dropdown">
+                       <% user = current_user.id %>
+                       <li><%= link_to "All Entries", entries_path %></li>
+                       <li><%= link_to "Goals", goals_path %></li>
+                       <li><%= link_to "Journal Entries", journals_path %></li>
+                       <li><%= link_to "Emotion Ratings", user_emotions_path %></li>
+                   </ul>
+                 </li>
+                 <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+              </ul>
+                 <% else %>
+                 <section class="top-bar-section">
+                   <ul class="right">
+                     <li><%= link_to "Log In", new_user_session_path %></li>
+                     <li><%= link_to "Sign Up", new_user_registration_path %></li>
+                   </ul>
+                 </section>
+                 <% end %>
+           </section>
+          </nav>
+        </div>
+      <div id="app">
+      </div>
+      <div id="server-side">
+        <%= yield %>
+      </div>
+    </body>
+  </div>
 </html>

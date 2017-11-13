@@ -1,0 +1,23 @@
+.journals-index-container {
+  display: flex;
+  justify-content: center;
+}
+
+.journals-list {
+  display: flex;
+}
+
+div.journal-entry-div {
+  display: flex;
+  border-radius: 20px;
+  background-color: white;
+  text-align: center;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  flex-direction: column;
+  margin: 2%;
+}
+
+.past-journals-title {
+  margin-left: 10%;
+}

@@ -7,15 +7,19 @@ class GraphContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      options: {
+        title: "Track your progress over time!",
+        hAxis: { title: "Time" },
+        vAxis: { title: "Rating" }
+      }
     }
   }
 
   componentDidMount() {
     fetch(`/api/v1/users/${this.props.currentUser.id}/user_emotions/graph_data`, {
       credentials: 'same-origin',
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+      method: 'GET'
     })
     .then(response => response.json())
     .then(body => {
@@ -26,20 +30,21 @@ class GraphContainer extends Component {
   render() {
 
     return (
-      <div className={'my-pretty-chart-container'}>
-        <div>
-          <h2>Track your progress over time!</h2>
-          <Chart
-            chartType="LineChart"
-            data={this.state.data}
-            options={{}}
-            graph_id="LineChart"
-            width="100%"
-            height="400px"
-            legend_toggle
-          />
+      <div className="graph">
+        <div className={'google-chart'}>
+          <div>
+            <Chart
+              chartType="LineChart"
+              data={this.state.data}
+              options={this.state.options}
+              graph_id="LineChart"
+              width="100%"
+              height="400px"
+              legend_toggle
+            />
+          </div>
         </div>
-      </div>
+    </div>
     );
   }
 }

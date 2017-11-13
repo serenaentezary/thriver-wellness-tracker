@@ -1,0 +1,31 @@
+.goals-index-container {
+  display: flex;
+  justify-content: center;
+}
+
+.goals-index {
+  display: flex;
+  margin: 2%;
+  width: 40%;
+  height: 5%;
+  padding: 3%;
+}
+
+.goals-list {
+  display: flex;
+  border-radius: 20px;
+  background-color: white;
+  text-align: center;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  flex-direction: column;
+}
+
+.goal-item {
+  display: flex;
+  margin: 2%;
+}
+
+.past-goals-title {
+  margin-left: 10%;
+}

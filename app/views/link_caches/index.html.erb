@@ -1,0 +1,22 @@
+<div id="articles-index">
+  <h1 class="hotlines-and-links">Hotlines</h1>
+    <h5 class="suicide-prevention">Samaritans USA (Boston)</h5>
+    <p class="suicide-prevention">
+    (617) 247-0220<br />
+    (508) 875-4500<br />
+    (800) 252-TEEN - Teenline<br />
+    (877) 870-HOPE - Massachusetts-wide Samaritans Hotline<br />
+    <a href="www.samaritanshope.org">www.samaritanshope.org
+  </p>
+
+  <h5 class="suicide-prevention">Suicide Prevention Lifeline</h5>
+  <p class="suicide-prevention">
+    (800) 273-8255<br />
+    <a href="https://suicidepreventionlifeline.org/">suicidepreventionlifeline.org
+  </p>
+
+  <h1 class="hotlines-and-links">Articles</h1>
+  <% @link_cache.each do |link| %>
+    <div id="article-link" class="link-resources"><%= link_to "#{link.title}", link.link %></div>
+  <% end %>
+</div>

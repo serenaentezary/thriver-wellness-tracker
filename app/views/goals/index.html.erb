@@ -1,0 +1,15 @@
+<h1 class="past-goals-title">Past Goals</h1>
+<div class="goals-index-container">
+  <div class="goals-index">
+    <div class="goals-outer-list">
+      <% @goal_entries.each_with_index do |goal_entry, index| %>
+        <ul class="goals-list">
+          <%= goal_entry[index].created_at.strftime('%a %d %m %Y') %>
+          <% goal_entry.each do |goal| %>
+            <li class="goal-item"><%= goal.goal_item %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>

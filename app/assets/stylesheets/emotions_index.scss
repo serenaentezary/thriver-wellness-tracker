@@ -1,0 +1,27 @@
+.emotions-index-container {
+  display: flex;
+  justify-content: center;
+}
+
+.emotions-index {
+  display: flex;
+  margin: 2%;
+  width: 40%;
+  height: 5%;
+  padding: 3%;
+}
+
+.emotions-list {
+  display: flex;
+  border-radius: 20px;
+  background-color: white;
+  text-align: center;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  flex-direction: column;
+}
+
+.emotions-item {
+  display: flex;
+  margin: 2%
+}
