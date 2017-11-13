@@ -84,6 +84,6 @@ class Api::V1::EntriesController < ApplicationController
 
   def destroy
     entry = Entry.find(params[:id])
-    
+
   end
 end

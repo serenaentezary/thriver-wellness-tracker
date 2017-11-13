@@ -99,12 +99,12 @@ class IndexContainer extends Component {
    })
    .then(response => response.json())
    .then(body => {
-     let lastEntry = body.entries[body.entries.length - 1]
+     let lastEntry = body.entries[0]
      this.setState({
        latestEntry: lastEntry,
        latestEntryId: lastEntry.id,
        latestJournalEntry: lastEntry.journals[0].journal_entry.slice(0, 140),
-       latestGoals: lastEntry.goals[0].goal_item,
+       latestGoals: lastEntry.goals[4].goal_item,
        latestUserEmotions: lastEntry.user_emotions[0].rating
       })
    })
